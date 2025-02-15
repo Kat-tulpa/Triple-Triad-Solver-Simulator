@@ -1136,23 +1136,16 @@ namespace Graphics {
     namespace TextureCache {
         static constexpr const char* MISSING_TEXTURE_FILEPATH = "MISSING CARD.png";
         static constexpr float SCALE_FACTOR = 2.f; // Scale card images to 2x size
-        static float CARD_WIDTH, CARD_HEIGHT, CARD_HALF_WIDTH, CARD_HALF_HEIGHT;
+        static constexpr float CARD_WIDTH = 100.f * SCALE_FACTOR;
+        static constexpr float CARD_HEIGHT = 126.f * SCALE_FACTOR;
+        static constexpr float CARD_HALF_WIDTH = CARD_WIDTH / 2.f;
+        static constexpr float CARD_HALF_HEIGHT = CARD_HEIGHT / 2.f;
 
         static std::vector<SDL_Texture*> card_images;
         static std::vector<bool> missingTextures;
         static ID RED_CARD;
         static ID BLUE_CARD;
         static bool cardSizeInitalized = false;
-
-        static void initCardDimensions(SDL_Texture* cardTexture) {
-            float width, height;
-            SDL_GetTextureSize(cardTexture, &width, &height);
-            CARD_WIDTH = width * SCALE_FACTOR;
-            CARD_HEIGHT = height * SCALE_FACTOR;
-            CARD_HALF_WIDTH = CARD_WIDTH / 2.f;
-            CARD_HALF_HEIGHT = CARD_HEIGHT / 2.f;
-            cardSizeInitalized = true;
-        }
 
         static void textureAddCard(const std::string& filePath) {
             if (filePath == "RED CARD.png")
@@ -1179,9 +1172,6 @@ namespace Graphics {
                 missingTextures.push_back(false);
 
             card_images.emplace_back(newTexture);
-            // Capture and set card dimensions, but only once
-            if (!cardSizeInitalized)
-                initCardDimensions(newTexture);
         }
 
         static void textureClear(SDL_Texture* texture) {
@@ -1331,24 +1321,6 @@ namespace Graphics {
             LINE_THICKNESS = 0.02f * TextureCache::CARD_WIDTH;  // Line thickness as a percentage of CARD_WIDTH
             MARGIN = LINE_THICKNESS * 3;  // Space between the cells and edges of the grid
         }
-        /*
-       void borders() {
-           line(xStart - MARGIN, yStart - MARGIN, xStart + width + MARGIN, yStart - MARGIN);  // Top
-           line(xStart - MARGIN, yStart - MARGIN, xStart - MARGIN, yStart + height + MARGIN);  // Left
-       } */
-
-       /*
-       void dividerLines() {
-           // Vertical Divider Lines
-           for (size_t col = 0; col < columnCount; col++)
-               line(xStart + (col * (TextureCache::CARD_WIDTH + MARGIN)), yStart - MARGIN,
-                   xStart + (col * (TextureCache::CARD_WIDTH + MARGIN)), yStart + height + MARGIN);
-
-           // Draw Horizontal Divider Lines
-           for (size_t row = 0; row < rowCount; row++)
-               line(xStart - MARGIN, yStart + (row * (TextureCache::CARD_HEIGHT + MARGIN)),
-                   xStart + width, yStart + (row * (TextureCache::CARD_HEIGHT + MARGIN)));
-       } */
 
         void draw() {
             for (size_t col = 0; col < colCount; col++)
