@@ -1323,30 +1323,33 @@ namespace Graphics {
         }
 
         void draw() {
-            for (size_t col = 0; col < colCount; col++)
-                for (size_t row = 0; row < rowCount; row++) {
+            for (size_t col = 0; col < colCount; ++col) {
+                for (size_t row = 0; row < rowCount; ++row) {
                     float cardX = xStart + (row * TextureCache::CARD_WIDTH);
                     float cardY = yStart + (col * TextureCache::CARD_HEIGHT);
 
-                    if (owner[col][row] == Player::PLAYER_RED)
-                        image(TextureCache::RED_CARD, cardX, cardY);
-                    else if (owner[col][row] == Player::PLAYER_BLUE)
-                        image(TextureCache::BLUE_CARD, cardX, cardY);
+                    // Determine card texture based on owner
+                    const auto& cardTexture = (owner[col][row] == Player::PLAYER_RED)
+                        ? TextureCache::RED_CARD
+                        : TextureCache::BLUE_CARD;
 
+                    // Draw the card
+                    image(cardTexture, cardX, cardY);
+
+                    // Calculate center position for attribute drawing
                     float xCenter = cardX + TextureCache::CARD_HALF_WIDTH;
                     float yCenter = cardY + TextureCache::CARD_HALF_HEIGHT;
-                    int attribute[4]{
-                        CardCollection::cards[cardIDs[col][row]].attribute[0],
-                        CardCollection::cards[cardIDs[col][row]].attribute[1],
-                        CardCollection::cards[cardIDs[col][row]].attribute[2],
-                        CardCollection::cards[cardIDs[col][row]].attribute[3]
-                    };
 
+                    // Retrieve card attributes in a structured way
+                    const auto& card = CardCollection::cards[cardIDs[col][row]];
+                    int attribute[4] = { card.attribute[0], card.attribute[1], card.attribute[2], card.attribute[3] };
+
+                    // Draw the card image and its attributes
                     image(cardIDs[col][row], cardX, cardY);
                     Attributes::draw(attribute, owner[col][row], xCenter, yCenter);
                 }
+            }
         }
-
 
         static void drawGame(const Board& board) {
             GraphicsSDL::RenderClear();
