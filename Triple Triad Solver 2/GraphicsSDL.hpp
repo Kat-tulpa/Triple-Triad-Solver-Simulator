@@ -1,5 +1,6 @@
 #pragma once
 #include "defs.hpp"
+#include <iostream>
 
 namespace GraphicsSDL {
     // Text Display Settings

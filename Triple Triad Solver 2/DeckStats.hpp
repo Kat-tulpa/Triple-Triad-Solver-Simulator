@@ -2,6 +2,8 @@
 #include "defs.hpp"
 #include <unordered_map>
 #include <iostream>
+#include <algorithm>
+#include <numeric>
 
 class DeckStats {
 public:

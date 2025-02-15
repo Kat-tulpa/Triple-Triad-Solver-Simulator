@@ -1,5 +1,6 @@
 #pragma once
 #include "defs.hpp"
+#include "helpers.hpp"
 #include "Card.hpp"
 #include <string>
 #include <iostream>
