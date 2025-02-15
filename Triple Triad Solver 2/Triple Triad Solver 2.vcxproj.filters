@@ -1,0 +1,1064 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="EMPTY CARD.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="2B.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="2P.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="4th-make Cuchulainn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="4th-make Shemhazai.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="9S.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Adamantoise.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Adrammelech.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Alexander Prime.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Alpaca.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Alpha.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Althyk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Amaro.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ambrose.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Amon the Undying.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ananta.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Anden.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ango.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Anima.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Apkallu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Archaeornis.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Archaeotania.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Archbishop Thordan VII.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ardbert.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Arenvald Lentinus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Argath Thadalfus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Argos.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Arkasodara.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Armored Weapon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Artoirel de Fortemps.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Asahi sas Brutus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Asura.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Athena.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Aymeric.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Azeyma.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Azulmagia.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Bandersnatch.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Barbariccia.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Bartz Klauser.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Batsquatch.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Beatrice.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Belladonna.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Bismarck.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Brachiosaur.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Branchbearer.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Brendt, Brennan, &amp; Bremondt.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Brute Justice.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Byakko.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Byregot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Cagnazzo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Cahciua.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Calcabrina.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Calofisteri.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Carvallain de Gorgagne.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Cecil Harvey.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Chapuli.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Charibert.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Chi.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Chief Keyward Lahabrea.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Cirina.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Clockwork Onmyoji &amp; Clockwork Yojimbo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Cloud of Darkness.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Cloud Strife.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Coeurlregina.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Colibri.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Count Edmont de Fortemps.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Crawler.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Curator.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Daivadipa.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Darkscale.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Dawon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Deepeye.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Delivery Moogle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Dhalmel.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Diablo Armament.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Diabolos Hollow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Diamond Weapon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Dreamingway.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Drowsie.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Durante.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Dvergr.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Dwarf.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ea.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Echidna.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Edens Promise.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ehll Tou.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ejika Tsunjika.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Elidibus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Emerald Weapon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Emmanellain de Fortemps.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Endsinger.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Endwalker Alphinaud &amp; Alisaie.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Enenra.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Erichthonios.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Eros.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Eulogia.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Evil Weapon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Felicitous Furball.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Fenrir.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Feo UI.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ferdiad.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Firion.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Flhaminn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Flower Basket.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Fordola rem Lupis.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Forgiven Obscenity.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Formidable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Fourchenault Leveilleur.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Fuath.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gaia.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gajasura.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gancanagh.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Genbu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Geryon the Steer.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gibrillont.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gigantender.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gigi.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gladiator of Sildih.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gnoll.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gogo, Master of Mimicry.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Golbez.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gold Saucer Attendant.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Goldor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gorai the Uncaged.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gosetsu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Great Azuro.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Great Gold Whisker.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Grenoldt.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Grynewaht.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Guidance Node.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Gulool Ja Ja.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="G-Warrior.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hades.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Halone.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hancock.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Happy Bunny.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hatamoto.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Haurchefant.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Heavensward Thancred.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Heavensward Yshtola.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hephaistos.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hermes.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hien.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hilda.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hippo Cart.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hiruko.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hisui &amp; Kurenai.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hoary Boulder &amp; Coultenet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hobgoblin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Honoroit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hraesvelgr.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hrodric Poisontongue.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Huaca.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hydaelyn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Hythlodaeus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Iguana.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Innocence.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Jongleurs of Eulmore.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Julyan Manderville.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Kal Myhk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Karakuri Hanya.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Keeper of the Keys.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ketuduke.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Koja.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Kojin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Kotokaze.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Kraken.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Krile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Kuribu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lakshmi.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lala.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Laniaitte de Haillenarte.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lava Scorpion.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Leannan Sith.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Liquid Flame.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lizbeth.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Llymlaen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Loporrit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Loquloqui.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lord and Lady Chai.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lost Lamb.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Louhi.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lugus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lunar Bahamut.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lunar Ifrit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lupin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lyna.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Lyse.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Magitek Colossus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Magitek Death Claw.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Magitek Gunship.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Magitek Predator.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Magitek Sky Armor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Magitek Vanguard.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Magnai.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Magus Sisters.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Mammoth.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Manxome Molaa Ja Ja.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Matoya.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Maulskull.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Menphina.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Meteion.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Mica the Magical Mu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Midgardsormr.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Mist Dragon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Mistbeard.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Mnaago.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Moblin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Moglin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Moko the Restless.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Mossling.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Mother Porxie.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Muud Suud.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="N-7000.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Nael van Darnus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Nald.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Namazu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Nidhogg.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Nophica.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Nu Mou.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Nymeia.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Octomammoth.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Okuri chochin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Omega.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Onion Knight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Opo-opo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Oracle of Light.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Oschon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Otis.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Outrunner.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Overseer Kanilokka.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Paissa.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Pazuzu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Pelupelu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Penthesilea.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Philia.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Phlegethon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Phoebad.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Phoenix.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Pipin Tarupin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Pisaca.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Poroggo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Porxie.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Prishe of the Distant Chains.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Progenitrix.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Prometheus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Proto-Carbuncle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Provenance Watcher.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Qiqirn Meateater.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Qitari.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Qitian Dasheng.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Queens Eternal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Quintus van Cinna.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Rampart.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ranjit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Rasho.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ravana.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Regula van Hydrus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Rhalgr.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Rhoswen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Rofocale.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Roland.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Rolling Tankard.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Roundrox.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Rroneek.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Rubicante.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ruby Weapon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Runar.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ryne.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ryoqor Terteh.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Sadu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Sapphire Weapon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Scarmiglione.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Seeker of Solitude.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Seiryu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Senor Sabotender.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Sentry R8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Sephirot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Shadow Lord.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Shadowbringers Thancred.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Shadowbringers Urianger.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Shadowbringers Warrior of Light.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Shadowbringers Yshtola.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Shadowcaster Zeless Gah.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Shinryu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Shishio.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Siegfried.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Sophia.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Sphene.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Statice.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Storge.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Stormblood Alphinaud &amp; Alisaie.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Stormblood Gilgamesh.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Stormblood Tataru Taru.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Strix.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Suprae-Lugae.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Susano.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Suzaku.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Tansui.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Terra Branford.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Thal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Thaliak.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="The Griffin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Themis.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Therion.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Thorne Knight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Tiamat.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Titania.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Tokkapchi.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Tozol Huatotl.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Trinity Avowed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Trinity Seeker.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Troll.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Tsukuyomi.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ultima, the High Seraph.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Unei &amp; Doga.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Unknown.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Valens van Varro.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Valigarmanda.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Varis yae Galvus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Vedrfolnir.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Venat.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Vicegerent to the Warden.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Vidofnir.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Vrtra.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Wanyudo &amp; Katasharin.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Warrior of Light.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Waukkeon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Wuk Lamat.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Xande.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Yiazmat.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Yojimbo &amp; Daigoro.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Yotsuyu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ysayle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Yukinko.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Zenos Galvus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Zenos yae galvus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Zeromus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Zodiark.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Zoraal Ja.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Zurvan.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MISSING CARD.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RED CARD.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="BLUE CARD.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SDL3.dll" />
+    <None Include="SDL3_image.dll" />
+    <None Include="SDL3_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Transformers Movie.ttf" />
+  </ItemGroup>
+</Project>

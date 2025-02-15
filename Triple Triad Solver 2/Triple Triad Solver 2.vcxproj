@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{86054891-440e-4df4-aae3-1345e3753523}</ProjectGuid>
+    <RootNamespace>TripleTriadSolver2</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\SDL3-3.2.4\include;C:\SDL3_ttf-3.1.0\include;C:\SDL3_image-3.2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\SDL3-3.2.4\lib\x64;C:\SDL3_ttf-3.1.0\lib\x64;C:\SDL3_image-3.2.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\SDL3-3.2.4\include;C:\SDL3_ttf-3.1.0\include;C:\SDL3_image-3.2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\SDL3-3.2.4\lib\x64;C:\SDL3_ttf-3.1.0\lib\x64;C:\SDL3_image-3.2.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL3.lib;SDL3_image.lib;SDL3_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="2B.png" />
+    <Image Include="2P.png" />
+    <Image Include="4th-make Cuchulainn.png" />
+    <Image Include="4th-make Shemhazai.png" />
+    <Image Include="9S.png" />
+    <Image Include="Adamantoise.png" />
+    <Image Include="Adrammelech.png" />
+    <Image Include="Alexander Prime.png" />
+    <Image Include="Alpaca.png" />
+    <Image Include="Alpha.png" />
+    <Image Include="Althyk.png" />
+    <Image Include="Amaro.png" />
+    <Image Include="Ambrose.png" />
+    <Image Include="Amon the Undying.png" />
+    <Image Include="Ananta.png" />
+    <Image Include="Anden.png" />
+    <Image Include="Ango.png" />
+    <Image Include="Anima.png" />
+    <Image Include="Apkallu.png" />
+    <Image Include="Archaeornis.png" />
+    <Image Include="Archaeotania.png" />
+    <Image Include="Archbishop Thordan VII.png" />
+    <Image Include="Ardbert.png" />
+    <Image Include="Arenvald Lentinus.png" />
+    <Image Include="Argath Thadalfus.png" />
+    <Image Include="Argos.png" />
+    <Image Include="Arkasodara.png" />
+    <Image Include="Armored Weapon.png" />
+    <Image Include="Artoirel de Fortemps.png" />
+    <Image Include="Asahi sas Brutus.png" />
+    <Image Include="Asura.png" />
+    <Image Include="Athena.png" />
+    <Image Include="Aymeric.png" />
+    <Image Include="Azeyma.png" />
+    <Image Include="Azulmagia.png" />
+    <Image Include="Bandersnatch.png" />
+    <Image Include="Barbariccia.png" />
+    <Image Include="Bartz Klauser.png" />
+    <Image Include="Batsquatch.png" />
+    <Image Include="Beatrice.png" />
+    <Image Include="Belladonna.png" />
+    <Image Include="Bismarck.png" />
+    <Image Include="BLUE CARD.png" />
+    <Image Include="Brachiosaur.png" />
+    <Image Include="Branchbearer.png" />
+    <Image Include="Brendt, Brennan, &amp; Bremondt.png" />
+    <Image Include="Brute Justice.png" />
+    <Image Include="Byakko.png" />
+    <Image Include="Byregot.png" />
+    <Image Include="Cagnazzo.png" />
+    <Image Include="Cahciua.png" />
+    <Image Include="Calcabrina.png" />
+    <Image Include="Calofisteri.png" />
+    <Image Include="Carvallain de Gorgagne.png" />
+    <Image Include="Cecil Harvey.png" />
+    <Image Include="Chapuli.png" />
+    <Image Include="Charibert.png" />
+    <Image Include="Chi.png" />
+    <Image Include="Chief Keyward Lahabrea.png" />
+    <Image Include="Cirina.png" />
+    <Image Include="Clockwork Onmyoji &amp; Clockwork Yojimbo.png" />
+    <Image Include="Cloud of Darkness.png" />
+    <Image Include="Cloud Strife.png" />
+    <Image Include="Coeurlregina.png" />
+    <Image Include="Colibri.png" />
+    <Image Include="Count Edmont de Fortemps.png" />
+    <Image Include="Crawler.png" />
+    <Image Include="Curator.png" />
+    <Image Include="Daivadipa.png" />
+    <Image Include="Darkscale.png" />
+    <Image Include="Dawon.png" />
+    <Image Include="Deepeye.png" />
+    <Image Include="Delivery Moogle.png" />
+    <Image Include="Dhalmel.png" />
+    <Image Include="Diablo Armament.png" />
+    <Image Include="Diabolos Hollow.png" />
+    <Image Include="Diamond Weapon.png" />
+    <Image Include="Dreamingway.png" />
+    <Image Include="Drowsie.png" />
+    <Image Include="Durante.png" />
+    <Image Include="Dvergr.png" />
+    <Image Include="Dwarf.png" />
+    <Image Include="Ea.png" />
+    <Image Include="Echidna.png" />
+    <Image Include="Edens Promise.png" />
+    <Image Include="Ehll Tou.png" />
+    <Image Include="Ejika Tsunjika.png" />
+    <Image Include="Elidibus.png" />
+    <Image Include="Emerald Weapon.png" />
+    <Image Include="Emmanellain de Fortemps.png" />
+    <Image Include="EMPTY CARD.png" />
+    <Image Include="Endsinger.png" />
+    <Image Include="Endwalker Alphinaud &amp; Alisaie.png" />
+    <Image Include="Enenra.png" />
+    <Image Include="Erichthonios.png" />
+    <Image Include="Eros.png" />
+    <Image Include="Eulogia.png" />
+    <Image Include="Evil Weapon.png" />
+    <Image Include="Felicitous Furball.png" />
+    <Image Include="Fenrir.png" />
+    <Image Include="Feo UI.png" />
+    <Image Include="Ferdiad.png" />
+    <Image Include="Firion.png" />
+    <Image Include="Flhaminn.png" />
+    <Image Include="Flower Basket.png" />
+    <Image Include="Fordola rem Lupis.png" />
+    <Image Include="Forgiven Obscenity.png" />
+    <Image Include="Formidable.png" />
+    <Image Include="Fourchenault Leveilleur.png" />
+    <Image Include="Fuath.png" />
+    <Image Include="G-Warrior.png" />
+    <Image Include="Gaia.png" />
+    <Image Include="Gajasura.png" />
+    <Image Include="Gancanagh.png" />
+    <Image Include="Genbu.png" />
+    <Image Include="Geryon the Steer.png" />
+    <Image Include="Gibrillont.png" />
+    <Image Include="Gigantender.png" />
+    <Image Include="Gigi.png" />
+    <Image Include="Gladiator of Sildih.png" />
+    <Image Include="Gnoll.png" />
+    <Image Include="Gogo, Master of Mimicry.png" />
+    <Image Include="Golbez.png" />
+    <Image Include="Gold Saucer Attendant.png" />
+    <Image Include="Goldor.png" />
+    <Image Include="Gorai the Uncaged.png" />
+    <Image Include="Gosetsu.png" />
+    <Image Include="Great Azuro.png" />
+    <Image Include="Great Gold Whisker.png" />
+    <Image Include="Grenoldt.png" />
+    <Image Include="Grynewaht.png" />
+    <Image Include="Guidance Node.png" />
+    <Image Include="Gulool Ja Ja.png" />
+    <Image Include="Hades.png" />
+    <Image Include="Halone.png" />
+    <Image Include="Hancock.png" />
+    <Image Include="Happy Bunny.png" />
+    <Image Include="Hatamoto.png" />
+    <Image Include="Haurchefant.png" />
+    <Image Include="Heavensward Thancred.png" />
+    <Image Include="Heavensward Yshtola.png" />
+    <Image Include="Hephaistos.png" />
+    <Image Include="Hermes.png" />
+    <Image Include="Hien.png" />
+    <Image Include="Hilda.png" />
+    <Image Include="Hippo Cart.png" />
+    <Image Include="Hiruko.png" />
+    <Image Include="Hisui &amp; Kurenai.png" />
+    <Image Include="Hoary Boulder &amp; Coultenet.png" />
+    <Image Include="Hobgoblin.png" />
+    <Image Include="Honoroit.png" />
+    <Image Include="Hraesvelgr.png" />
+    <Image Include="Hrodric Poisontongue.png" />
+    <Image Include="Huaca.png" />
+    <Image Include="Hydaelyn.png" />
+    <Image Include="Hythlodaeus.png" />
+    <Image Include="Iguana.png" />
+    <Image Include="Innocence.png" />
+    <Image Include="Jongleurs of Eulmore.png" />
+    <Image Include="Julyan Manderville.png" />
+    <Image Include="Kal Myhk.png" />
+    <Image Include="Karakuri Hanya.png" />
+    <Image Include="Keeper of the Keys.png" />
+    <Image Include="Ketuduke.png" />
+    <Image Include="Koja.png" />
+    <Image Include="Kojin.png" />
+    <Image Include="Kotokaze.png" />
+    <Image Include="Kraken.png" />
+    <Image Include="Krile.png" />
+    <Image Include="Kuribu.png" />
+    <Image Include="Lakshmi.png" />
+    <Image Include="Lala.png" />
+    <Image Include="Laniaitte de Haillenarte.png" />
+    <Image Include="Lava Scorpion.png" />
+    <Image Include="Leannan Sith.png" />
+    <Image Include="Liquid Flame.png" />
+    <Image Include="Lizbeth.png" />
+    <Image Include="Llymlaen.png" />
+    <Image Include="Loporrit.png" />
+    <Image Include="Loquloqui.png" />
+    <Image Include="Lord and Lady Chai.png" />
+    <Image Include="Lost Lamb.png" />
+    <Image Include="Louhi.png" />
+    <Image Include="Lugus.png" />
+    <Image Include="Lunar Bahamut.png" />
+    <Image Include="Lunar Ifrit.png" />
+    <Image Include="Lupin.png" />
+    <Image Include="Lyna.png" />
+    <Image Include="Lyse.png" />
+    <Image Include="Magitek Colossus.png" />
+    <Image Include="Magitek Death Claw.png" />
+    <Image Include="Magitek Gunship.png" />
+    <Image Include="Magitek Predator.png" />
+    <Image Include="Magitek Sky Armor.png" />
+    <Image Include="Magitek Vanguard.png" />
+    <Image Include="Magnai.png" />
+    <Image Include="Magus Sisters.png" />
+    <Image Include="Mammoth.png" />
+    <Image Include="Manxome Molaa Ja Ja.png" />
+    <Image Include="Matoya.png" />
+    <Image Include="Maulskull.png" />
+    <Image Include="Menphina.png" />
+    <Image Include="Meteion.png" />
+    <Image Include="Mica the Magical Mu.png" />
+    <Image Include="Midgardsormr.png" />
+    <Image Include="MISSING CARD.png" />
+    <Image Include="Mist Dragon.png" />
+    <Image Include="Mistbeard.png" />
+    <Image Include="Mnaago.png" />
+    <Image Include="Moblin.png" />
+    <Image Include="Moglin.png" />
+    <Image Include="Moko the Restless.png" />
+    <Image Include="Mossling.png" />
+    <Image Include="Mother Porxie.png" />
+    <Image Include="Muud Suud.png" />
+    <Image Include="N-7000.png" />
+    <Image Include="Nael van Darnus.png" />
+    <Image Include="Nald.png" />
+    <Image Include="Namazu.png" />
+    <Image Include="Nidhogg.png" />
+    <Image Include="Nophica.png" />
+    <Image Include="Nu Mou.png" />
+    <Image Include="Nymeia.png" />
+    <Image Include="Octomammoth.png" />
+    <Image Include="Okuri chochin.png" />
+    <Image Include="Omega.png" />
+    <Image Include="Onion Knight.png" />
+    <Image Include="Opo-opo.png" />
+    <Image Include="Oracle of Light.png" />
+    <Image Include="Oschon.png" />
+    <Image Include="Otis.png" />
+    <Image Include="Outrunner.png" />
+    <Image Include="Overseer Kanilokka.png" />
+    <Image Include="Paissa.png" />
+    <Image Include="Pazuzu.png" />
+    <Image Include="Pelupelu.png" />
+    <Image Include="Penthesilea.png" />
+    <Image Include="Philia.png" />
+    <Image Include="Phlegethon.png" />
+    <Image Include="Phoebad.png" />
+    <Image Include="Phoenix.png" />
+    <Image Include="Pipin Tarupin.png" />
+    <Image Include="Pisaca.png" />
+    <Image Include="Poroggo.png" />
+    <Image Include="Porxie.png" />
+    <Image Include="Prishe of the Distant Chains.png" />
+    <Image Include="Progenitrix.png" />
+    <Image Include="Prometheus.png" />
+    <Image Include="Proto-Carbuncle.png" />
+    <Image Include="Provenance Watcher.png" />
+    <Image Include="Qiqirn Meateater.png" />
+    <Image Include="Qitari.png" />
+    <Image Include="Qitian Dasheng.png" />
+    <Image Include="Queens Eternal.png" />
+    <Image Include="Quintus van Cinna.png" />
+    <Image Include="Rampart.png" />
+    <Image Include="Ranjit.png" />
+    <Image Include="Rasho.png" />
+    <Image Include="Ravana.png" />
+    <Image Include="RED CARD.png" />
+    <Image Include="Regula van Hydrus.png" />
+    <Image Include="Rhalgr.png" />
+    <Image Include="Rhoswen.png" />
+    <Image Include="Rofocale.png" />
+    <Image Include="Roland.png" />
+    <Image Include="Rolling Tankard.png" />
+    <Image Include="Roundrox.png" />
+    <Image Include="Rroneek.png" />
+    <Image Include="Rubicante.png" />
+    <Image Include="Ruby Weapon.png" />
+    <Image Include="Runar.png" />
+    <Image Include="Ryne.png" />
+    <Image Include="Ryoqor Terteh.png" />
+    <Image Include="Sadu.png" />
+    <Image Include="Sapphire Weapon.png" />
+    <Image Include="Scarmiglione.png" />
+    <Image Include="Seeker of Solitude.png" />
+    <Image Include="Seiryu.png" />
+    <Image Include="Senor Sabotender.png" />
+    <Image Include="Sentry R8.png" />
+    <Image Include="Sephirot.png" />
+    <Image Include="Shadow Lord.png" />
+    <Image Include="Shadowbringers Thancred.png" />
+    <Image Include="Shadowbringers Urianger.png" />
+    <Image Include="Shadowbringers Warrior of Light.png" />
+    <Image Include="Shadowbringers Yshtola.png" />
+    <Image Include="Shadowcaster Zeless Gah.png" />
+    <Image Include="Shinryu.png" />
+    <Image Include="Shishio.png" />
+    <Image Include="Siegfried.png" />
+    <Image Include="Sophia.png" />
+    <Image Include="Sphene.png" />
+    <Image Include="Statice.png" />
+    <Image Include="Storge.png" />
+    <Image Include="Stormblood Alphinaud &amp; Alisaie.png" />
+    <Image Include="Stormblood Gilgamesh.png" />
+    <Image Include="Stormblood Tataru Taru.png" />
+    <Image Include="Strix.png" />
+    <Image Include="Suprae-Lugae.png" />
+    <Image Include="Susano.png" />
+    <Image Include="Suzaku.png" />
+    <Image Include="Tansui.png" />
+    <Image Include="Terra Branford.png" />
+    <Image Include="Thal.png" />
+    <Image Include="Thaliak.png" />
+    <Image Include="The Griffin.png" />
+    <Image Include="Themis.png" />
+    <Image Include="Therion.png" />
+    <Image Include="Thorne Knight.png" />
+    <Image Include="Tiamat.png" />
+    <Image Include="Titania.png" />
+    <Image Include="Tokkapchi.png" />
+    <Image Include="Tozol Huatotl.png" />
+    <Image Include="Trinity Avowed.png" />
+    <Image Include="Trinity Seeker.png" />
+    <Image Include="Troll.png" />
+    <Image Include="Tsukuyomi.png" />
+    <Image Include="Ultima, the High Seraph.png" />
+    <Image Include="Unei &amp; Doga.png" />
+    <Image Include="Unknown.png" />
+    <Image Include="Valens van Varro.png" />
+    <Image Include="Valigarmanda.png" />
+    <Image Include="Varis yae Galvus.png" />
+    <Image Include="Vedrfolnir.png" />
+    <Image Include="Venat.png" />
+    <Image Include="Vicegerent to the Warden.png" />
+    <Image Include="Vidofnir.png" />
+    <Image Include="Vrtra.png" />
+    <Image Include="Wanyudo &amp; Katasharin.png" />
+    <Image Include="Warrior of Light.png" />
+    <Image Include="Waukkeon.png" />
+    <Image Include="Wuk Lamat.png" />
+    <Image Include="Xande.png" />
+    <Image Include="Yiazmat.png" />
+    <Image Include="Yojimbo &amp; Daigoro.png" />
+    <Image Include="Yotsuyu.png" />
+    <Image Include="Ysayle.png" />
+    <Image Include="Yukinko.png" />
+    <Image Include="Zenos Galvus.png" />
+    <Image Include="Zenos yae galvus.png" />
+    <Image Include="Zeromus.png" />
+    <Image Include="Zodiark.png" />
+    <Image Include="Zoraal Ja.png" />
+    <Image Include="Zurvan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SDL3.dll" />
+    <None Include="SDL3_image.dll" />
+    <None Include="SDL3_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Transformers Movie.ttf" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
