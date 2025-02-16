@@ -2,10 +2,24 @@
 #include "defs.hpp"
 #include <iostream>
 
+namespace Color {
+    static constexpr SDL_Color WHITE = { 255, 255, 255, 255 };
+    static constexpr SDL_Color LIGHT_GRAY = { 211, 211, 211, 255 };
+    static constexpr SDL_Color DARK_GRAY = { 170, 170, 170, 255 };
+    static constexpr SDL_Color BLUE = { 55, 55, 175, 255 };
+    static constexpr SDL_Color BLACK = { 0, 0, 0, 255 };
+    static constexpr SDL_Color RED = { 175, 55, 55, 255 };
+    static constexpr SDL_Color GREEN = { 100, 255, 0, 255 };
+}
+
+static SDL_Window* WINDOW = nullptr;
+static SDL_Renderer* RENDERER = nullptr;
+static constexpr int WINDOW_WIDTH = 3440;
+static constexpr int WINDOW_HEIGHT = 1440;
+
 namespace GraphicsSDL {
     // Text Display Settings
     static constexpr const char* FONT_PATH = "Transformers Movie.ttf";
-    static constexpr SDL_Color TEXT_COLOR = Color::BLACK;
     static constexpr float FONT_SIZE = 48; // 12pt
     static TTF_Font* FONT;
 
@@ -33,30 +47,147 @@ namespace GraphicsSDL {
     }
 
     // End of wrapper functions ---------------------------------------------
+    char* stringToCharArray(const std::string& str) {
+        size_t length = str.length() + 1; // +1 for null terminator
+        char* charArray = new char[length]; // Allocate memory
 
-    static void text(float x, float y, float pt, bool centered, SDL_Color color, const char* text) {
-        if (strlen(text) == 0)
-            std::cout << "GrpaphicsSDL::text() Tried using text with 0 length" << std::endl;
+        if (strcpy_s(charArray, length, str.c_str()) != 0) { // Safe copy
+            delete[] charArray; // Clean up if copy fails
+            return nullptr;
+        }
 
-        SDL_Surface* textSurface = TTF_RenderText_Solid(FONT, text, strlen(text), color);
-        if (!textSurface)
+        return charArray;
+    }
+
+    static SDL_Texture* createTextTexture(std::string textString, SDL_Color color, TTF_Font* font, int& textWidth, int& textHeight) {
+        if (textString.empty()) {
+            std::cout << "GraphicsSDL::text() Tried using text with 0 length" << std::endl;
+            return nullptr;
+        }
+
+        SDL_Surface* textSurface = TTF_RenderText_Blended(font, stringToCharArray(textString), textString.size(), color);
+        if (!textSurface) {
             std::cout << "GraphicsSDL::text() Failure to create surface from font. " << SDL_GetError() << std::endl;
+            return nullptr;
+        }
+
+        textWidth = textSurface->w;
+        textHeight = textSurface->h;
 
         SDL_Texture* textTexture = CreateTextureFromSurface(textSurface);
+        SDL_DestroySurface(textSurface);
+
         if (!textTexture)
             std::cout << "GraphicsSDL::text() Failure to create texture from surface. " << SDL_GetError() << std::endl;
 
-        const int textWidth = textSurface->w;
-        const int textHeight = textSurface->h;
-        SDL_DestroySurface(textSurface);
+        return textTexture;
+    }
 
-        if (centered) { // Center the text
+    static void renderText(float x, float y, bool centered, SDL_Texture* textTexture, int textWidth, int textHeight) {
+        if (!textTexture) return;
+
+        if (centered) {
             x -= textWidth / 2.f;
             y -= textHeight / 2.f;
         }
-        SDL_FRect destRect = { x, y, textWidth, textHeight };
+
+        SDL_FRect destRect = { x, y, (float)textWidth, (float)textHeight };
         RenderTexture(textTexture, &destRect);
-        SDL_DestroyTexture(textTexture);
+    }
+
+    static void text(float x, float y, float pt, bool centered, SDL_Color color, std::string str, TTF_Font* font) {
+        int textWidth, textHeight;
+        SDL_Texture* textTexture = createTextTexture(str, color, font, textWidth, textHeight);
+        renderText(x, y, centered, textTexture, textWidth, textHeight);
+        SDL_DestroyTexture(textTexture); // Destroy only after both render calls are done
+    }
+
+    std::vector<std::string> splitIntoWords(const std::string& text) {
+        std::vector<std::string> words;
+        std::string currentWord;
+
+        for (char c : text) {
+            if (c == ' ') {
+                if (!currentWord.empty()) {
+                    words.push_back(currentWord);
+                    currentWord.clear();
+                }
+            }
+            else {
+                currentWord += c;
+            }
+        }
+
+        if (!currentWord.empty()) {
+            words.push_back(currentWord);
+        }
+
+        return words;
+    }
+
+    static std::vector<std::string> wrapText(TTF_Font* font, float pt, const std::string& text, int maxWidth) {
+        const std::vector<std::string> tokenWords = splitIntoWords(text);
+
+        std::vector<std::string> wrappedLines;
+        std::string line;
+        for (int i = 0; i < tokenWords.size(); i++) {
+            if (((line.size() + tokenWords[i].size()) * pt) <= maxWidth) {
+                line += tokenWords[i];
+            }
+            else {
+                wrappedLines.push_back(line);
+                line.clear();
+                line = tokenWords[i];
+            }
+        }
+
+        return wrappedLines;
+    }
+
+    static void drawTextWithBackground(float x, float y, float pt, std::string textString, int maxWidth) {
+        SDL_Color bgColor = { 0, 0, 0, 255 };  // Black background
+        SDL_Color fgColor = { 255, 255, 255, 255 };  // White foreground
+
+        TTF_Font* bigFont = TTF_OpenFont(FONT_PATH, pt * 1.2f);  // Background font
+        TTF_Font* smallFont = TTF_OpenFont(FONT_PATH, pt * 1.f);  // Foreground font
+
+        if (!bigFont || !smallFont) {
+            std::cout << "Failed to load fonts!" << std::endl;
+            return;
+        }
+
+        std::vector<std::string> lines = wrapText(smallFont, pt, textString, maxWidth);
+
+        int lineHeight = pt;
+        float yOffset = 0;
+
+        for (const std::string& line : lines) {
+            text(x, y + yOffset, pt * 1.2f, true, bgColor, line, bigFont);  // Background text
+            text(x, y + yOffset, pt * 1.f, true, fgColor, line, smallFont);  // Foreground text
+            yOffset += lineHeight;  // Move to the next line
+        }
+
+        TTF_CloseFont(bigFont);
+        TTF_CloseFont(smallFont);
+    }
+
+    static void drawTextWithBackground(float x, float y, float pt, std::string textString) {
+        SDL_Color bgColor = { 0, 0, 0, 255 };  // Black background
+        SDL_Color fgColor = { 255, 255, 255, 255 };  // White foreground
+
+        TTF_Font* bigFont = TTF_OpenFont(FONT_PATH, pt * 1.2f);  // Background font
+        TTF_Font* smallFont = TTF_OpenFont(FONT_PATH, pt * 1.f);  // Foreground font
+
+        if (!bigFont || !smallFont) {
+            std::cout << "Failed to load fonts!" << std::endl;
+            return;
+        }
+
+        text(x, y, pt * 1.2f, true, bgColor, textString, bigFont);  // Background text
+        text(x, y, pt * 1.f, true, fgColor, textString, smallFont);  // Foreground text
+
+        TTF_CloseFont(bigFont);
+        TTF_CloseFont(smallFont);
     }
 
     static void init() {

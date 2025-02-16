@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SDL3-3.2.4\include;C:\SDL3_ttf-3.1.0\include;C:\SDL3_image-3.2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,6 +123,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SDL3-3.2.4\include;C:\SDL3_ttf-3.1.0\include;C:\SDL3_image-3.2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -490,6 +492,7 @@
     <Font Include="Transformers Movie.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Attributes.hpp" />
     <ClInclude Include="Board.hpp" />
     <ClInclude Include="Card.hpp" />
     <ClInclude Include="CardCollection.hpp" />
@@ -500,7 +503,11 @@
     <ClInclude Include="GraphicsSDL.hpp" />
     <ClInclude Include="helpers.hpp" />
     <ClInclude Include="Matchplay.hpp" />
+    <ClInclude Include="PossibleMove.hpp" />
+    <ClInclude Include="RenderableCardContainer.hpp" />
     <ClInclude Include="Search.hpp" />
+    <ClInclude Include="TextureCache.hpp" />
+    <ClInclude Include="TranspositionTable.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

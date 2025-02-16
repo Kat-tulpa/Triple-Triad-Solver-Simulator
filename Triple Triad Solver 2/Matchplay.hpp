@@ -5,6 +5,7 @@
 #include "Clock.hpp"
 #include "CardCollection.hpp"
 #include "Graphics.hpp"
+#include "RenderableCardContainer.hpp"
 
 namespace Matchplay {
     // Check if there are enough decks for the simulation
@@ -24,19 +25,13 @@ namespace Matchplay {
 
     // Simulate a match and return the result
     static void simulateMatch(Board& board) {
-        int movesPlayed = 0;
         while (!board.matchEnded()) {
             Board bestMove = Search::findBestMove(board);
             board = bestMove;
-            movesPlayed++;
+            //std::cout << "Move was played" << std::endl;
         }
         DeckStats::recordMatchResult(board.deckIDs[PLAYER_RED],
             board.deckIDs[PLAYER_BLUE], board.winningPlayer());
-    }
-
-    // Print progress of the simulation
-    static void printSimulationProgress(int matchesPlayed) {
-        Clock::printProgressEveryXseconds(matchesPlayed, DeckStats::MATCHES_TO_PLAY, 3);
     }
 
     // Main simulation loop
@@ -48,10 +43,11 @@ namespace Matchplay {
             Board board = preparedBoard();
 
             if (!DeckStats::hasPlayedAgainst(board.deckIDs[PLAYER_RED], board.deckIDs[PLAYER_BLUE])) {
-                Search::transpositionTable.clear();
+                //std::cout << "DEck didn't play against begin match" << std::endl;
+                transpositionTable.clear();
                 simulateMatch(board);
                 matchesPlayed++;
-                printSimulationProgress(matchesPlayed);
+                Clock::printProgressEveryXseconds(matchesPlayed, DeckStats::MATCHES_TO_PLAY, 3);
             }
         }
 
@@ -76,7 +72,7 @@ namespace Matchplay {
         // --- Play Matches As PLAYER_RED into targetDeck ---
         for (int i = 0; i < DeckStats::deckCount(); i++) {
             Board board = Board(i, targetDeck);
-            Search::transpositionTable.clear();
+            transpositionTable.clear();
 
             while (!board.matchEnded()) {
                 Board bestMove = Search::findBestMove(board);
@@ -91,7 +87,7 @@ namespace Matchplay {
         std::vector<ID> finalistDecks;
         for (int i = 0; i < decksWhichWonAgainst.size(); i++) {
             Board board = Board(targetDeck, i);
-            Search::transpositionTable.clear();
+            transpositionTable.clear();
 
             while (!board.matchEnded()) {
                 Board bestMove = Search::findBestMove(board);
@@ -128,26 +124,26 @@ namespace Matchplay {
 
     static void graphicallyResimulateMatch(ID redDeck, ID blueDeck) {
         Graphics::background();
-        Search::transpositionTable.clear();
+        transpositionTable.clear();
         Board board = Board(redDeck, blueDeck);
-        Graphics::RenderableCardContainer::drawGame(board);
+        RenderableCardContainer::drawGame(board);
 
         while (!board.matchEnded()) {
             Board bestMove = Search::findBestMove(board);
             board = bestMove;
             SDL_Delay(16 * 360);  // Cap to 0.18ish fps
-            Graphics::RenderableCardContainer::drawGame(board);
+            RenderableCardContainer::drawGame(board);
         }
 
-        Graphics::RenderableCardContainer::drawGame(board);
+        RenderableCardContainer::drawGame(board);
     }
 
     static void graphicallyResimulateMatchManual(ID redDeck, ID blueDeck) {
         while (true) {  // Restart loop
             Graphics::background();
-            Search::transpositionTable.clear();
+            transpositionTable.clear();
             Board board = Board(redDeck, blueDeck);
-            Graphics::RenderableCardContainer::drawGame(board);
+            RenderableCardContainer::drawGame(board);
             GraphicsSDL::RenderPresent();  // Ensure first frame is visible
 
             while (!board.matchEnded()) {
@@ -157,7 +153,7 @@ namespace Matchplay {
                     while (!validMove) {
                         std::cout << "Player RED, it's your turn!" << std::endl;
                         std::cout << "Select a card to play (1-" << board.hand[PLAYER_RED].size()
-                            << ") followed by row(0-" << Board::WIDTH - 1 << ") and col(0-"
+                            << ") followed by col(0-" << Board::WIDTH - 1 << ") and row(0-"
                             << Board::HEIGHT - 1 << "). Example: 412" << std::endl;
 
                         int input;
@@ -181,16 +177,16 @@ namespace Matchplay {
                             validMove = true;
                     }
 
-                    auto move = Board::PossibleMove(col, row, board.hand[PLAYER_RED][cardIndex]);
-                    board.playCard(move);
+                    auto move = PossibleMove(col, row, board.hand[PLAYER_RED][cardIndex]);
+                    board.makeMove(move);
 
                     // Ensure player move is displayed
-                    Graphics::RenderableCardContainer::drawGame(board);
+                    RenderableCardContainer::drawGame(board);
                     GraphicsSDL::RenderPresent();
                 }
                 else {
                     // Force render update before AI move
-                    Graphics::RenderableCardContainer::drawGame(board);
+                    RenderableCardContainer::drawGame(board);
                     GraphicsSDL::RenderPresent();
                     SDL_Delay(100);  // Brief pause to ensure rendering
 
@@ -199,13 +195,13 @@ namespace Matchplay {
                     board = bestMove;
 
                     // Ensure AI move is displayed
-                    Graphics::RenderableCardContainer::drawGame(board);
+                    RenderableCardContainer::drawGame(board);
                     GraphicsSDL::RenderPresent();
                 }
             }
 
             // Final render
-            Graphics::RenderableCardContainer::drawGame(board);
+            RenderableCardContainer::drawGame(board);
             GraphicsSDL::RenderPresent();
 
             // Wait for user input before restarting

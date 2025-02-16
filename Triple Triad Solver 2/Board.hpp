@@ -3,26 +3,20 @@
 #include "helpers.hpp"
 #include "Card.hpp"
 #include "DeckStats.hpp"
+#include "PossibleMove.hpp"
 
 struct Board {
     enum Border { TOP_BORDER = 0, RIGHT_BORDER = 2, BOTTOM_BORDER = 2, LEFT_BORDER = 0 };
-    static constexpr uint8_t WIDTH = 3;
-    static constexpr uint8_t HEIGHT = 3;
+    static constexpr int WIDTH = 3;
+    static constexpr int HEIGHT = 3;
 
     std::vector<CardContainer> hand = std::vector<CardContainer>(PLAYER_COUNT);
     std::vector<ID> deckIDs = std::vector<ID>(PLAYER_COUNT);
 
+    std::vector<PossibleMove> moveHistory;
+
     Player currentPlayer;
     Card cards[WIDTH][HEIGHT];
-
-    struct PossibleMove {
-        uint8_t col, row;
-        ID card;
-
-        PossibleMove(uint8_t _col, uint8_t _row, ID _card)
-            : col(_col), row(_row), card(_card) {
-        }
-    };
 
     Board(ID redDeck, ID blueDeck) {
         currentPlayer = PLAYER_RED;
@@ -57,7 +51,6 @@ struct Board {
         return h;
     }
 
-
     void initPlayerByPickingRandomDeck(Player player) {
         const int deckID = DeckStats::getRandomID();
         deckIDs[player] = deckID;
@@ -65,10 +58,10 @@ struct Board {
     }
 
     std::vector<PossibleMove> getAllPossibleMoves() const {
-        const uint8_t handSize = hand[currentPlayer].size();
+        const int handSize = hand[currentPlayer].size();
         std::vector<PossibleMove> possibleMoves;
-        for (uint8_t col = 0; col < WIDTH; col++)
-            for (uint8_t row = 0; row < HEIGHT; row++)
+        for (int col = 0; col < WIDTH; col++)
+            for (int row = 0; row < HEIGHT; row++)
                 if (isEmpty(col, row))
                     for (int i = 0; i < handSize; i++)
                         possibleMoves.emplace_back(col, row, hand[currentPlayer][i]);
@@ -80,58 +73,99 @@ struct Board {
         card.setControllingPlayer(otherPlayer(card.controllingPlayer()));
     }
 
-    void removeCardFromHand(ID cardID) {
-        hand[currentPlayer].erase(
-            std::remove(hand[currentPlayer].begin(), hand[currentPlayer].end(), cardID), hand[currentPlayer].end());
+    void removeCardFromHandAndSort(Player player, ID cardID) {
+        hand[player].erase(
+            std::remove(hand[player].begin(), hand[player].end(), cardID), hand[player].end());
+        sortHand(player);
     }
 
-    void sortHand() {
-        std::sort(hand[currentPlayer].begin(), hand[currentPlayer].end(), std::greater<ID>());
+    void sortHand(Player player) {
+        std::sort(hand[player].begin(), hand[player].end(), std::greater<ID>());
     }
 
-    void playCard(PossibleMove move) {
-        placeCard(move.card, move.col, move.row);  // Place the card on the board
-        removeCardFromHand(move.card);  // Remove the card from the hand
-        sortHand(); // This should make transposition-hashing faster
+    void makeMove(PossibleMove move) {
+        placeCard(move); // Place the card on the board
+        removeCardFromHandAndSort(currentPlayer, move.card); // Remove the card from the hand
+        sortHand(currentPlayer); // This should make transposition-hashing faster
         currentPlayer = otherPlayer(currentPlayer);
     }
 
-    void placeCard(ID cardID, int col, int row) {
-        Card placedCard = CardCollection::card(cardID);
+    void addCardToHandAndSort(Player player, ID cardID) {
+        hand[player].push_back(cardID);
+        sortHand(player);
+    }
+
+    void undoPlaceCard() {
+        PossibleMove& move = moveHistory[moveHistory.size() - 1];
+        if (move.flipped[TOP])
+            flip(cards[move.col][move.row - 1]);
+
+        if (move.flipped[RIGHT])
+            flip(cards[move.col + 1][move.row]);
+
+        if (move.flipped[BOTTOM])
+            flip(cards[move.col][move.row + 1]);
+
+        if (move.flipped[LEFT])
+            flip(cards[move.col - 1][move.row]);
+
+        cards[move.col][move.row] = CardCollection::getEmpty();
+    }
+
+    void undoLastMove() {
+        currentPlayer = otherPlayer(currentPlayer);
+        undoPlaceCard();
+        addCardToHandAndSort(currentPlayer, moveHistory[moveHistory.size() - 1].card);
+        moveHistory.pop_back();
+    }
+
+    void placeCard(PossibleMove move) {
+        Card placedCard = CardCollection::card(move.card);
         placedCard.setControllingPlayer(currentPlayer);
+        int row = move.row; int col = move.col;
         cards[col][row] = placedCard;
 
         // Check Top For Flips
         if (row > TOP_BORDER) {
             Card& adjacentCard = cards[col][row - 1];
             if (adjacentCard.isEnemy(placedCard)
-                && adjacentCard.attribute(BOTTOM) < placedCard.attribute(TOP))
+                && adjacentCard.attribute(BOTTOM) < placedCard.attribute(TOP)) {
                 flip(adjacentCard);
+                move.flipped[TOP] = true;
+            }
         }
 
         // Check Right For Flips
         if (col < RIGHT_BORDER) {
             Card& adjacentCard = cards[col + 1][row];
             if (adjacentCard.isEnemy(placedCard)
-                && adjacentCard.attribute(LEFT) < placedCard.attribute(RIGHT))
+                && adjacentCard.attribute(LEFT) < placedCard.attribute(RIGHT)) {
                 flip(adjacentCard);
+                move.flipped[RIGHT] = true;
+            }
         }
 
         // Check Bottom For Flips
         if (row < BOTTOM_BORDER) {
             Card& adjacentCard = cards[col][row + 1];
             if (adjacentCard.isEnemy(placedCard)
-                && adjacentCard.attribute(TOP) < placedCard.attribute(BOTTOM))
+                && adjacentCard.attribute(TOP) < placedCard.attribute(BOTTOM)) {
                 flip(adjacentCard);
+                move.flipped[BOTTOM] = true;
+            }
         }
 
         // Check Left For Flips
         if (col > LEFT_BORDER) {
             Card& adjacentCard = cards[col - 1][row];
             if (adjacentCard.isEnemy(placedCard)
-                && adjacentCard.attribute(RIGHT) < placedCard.attribute(LEFT))
+                && adjacentCard.attribute(RIGHT) < placedCard.attribute(LEFT)) {
                 flip(adjacentCard);
+                move.flipped[LEFT] = true;
+            }
         }
+
+        moveHistory.push_back(move);
     }
 
     bool matchEnded() const {
@@ -147,12 +181,10 @@ struct Board {
     }
 
     void printColors() const {
-        for (uint8_t row = 0; row < HEIGHT; row++) {
-            for (uint8_t col = 0; col < WIDTH; col++) {
+        for (int row = 0; row < HEIGHT; row++)
+            for (int col = 0; col < WIDTH; col++)
                 std::cout << colorToChar(cards[col][row].controllingPlayer()) << " ";
-            }
             std::cout << std::endl;
-        }
         std::cout << std::endl;
     }
 

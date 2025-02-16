@@ -3,15 +3,15 @@
 
 class Card {
 private:
-    uint8_t myAttributes[4] = { 0, 0, 0, 0 };
+    int myAttributes[4] = { 0, 0, 0, 0 };
     ID myID = 0;
-    uint8_t myStarCount = 0;
+    int myStarCount = 0;
     Player myControllingPlayer = PLAYER_NONE;
 
 public:
     Card() = default;
 
-    Card(ID id, uint8_t stars, uint8_t top, uint8_t right, uint8_t bottom, uint8_t left, Player controllingPlayer)
+    Card(ID id, int stars, int top, int right, int bottom, int left, Player controllingPlayer)
         : myID(id), myStarCount(stars), myControllingPlayer(controllingPlayer), myAttributes{ top, right, bottom, left } {
     }
 
@@ -34,6 +34,10 @@ public:
 
     const ID& id() const {
         return myID;
+    }
+
+    const int* attributes() const {
+        return myAttributes;
     }
 
     // Setters

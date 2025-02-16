@@ -7,26 +7,22 @@
 
 class CardCollection {
 private:
-    static std::vector<Card> cards;
-    static std::vector<std::string> names;
+    inline static std::vector<Card> cards;
+    inline static std::vector<std::string> names;
 
     // Adds a manually defined card from the game into the global collection
-    static void add(const std::string& name, uint8_t stars,
-        uint8_t top, uint8_t right, uint8_t bottom, uint8_t left) {
+    static void add(const std::string& name, int stars,
+        int top, int right, int bottom, int left) {
         const ID id = cards.size();
         cards.emplace_back(id, stars, top, right, bottom, left, Player::PLAYER_NONE);
         names.push_back(name);
     }
 public:
-    static const int& cardCount() {
+    static int cardCount() {
         return cards.size();
     }
 
-    static const Card& card(const ID& id) {
-        return cards[id];
-    }
-
-    static const Card& cardFromID(const ID& id) {
+    static Card card(const ID id) {
         return cards[id];
     }
 
@@ -35,9 +31,11 @@ public:
         // Card Stat Ordering: Top, Right, Bottom, Left (Clockwise)
         // ______ EMPTY CARD _________
         add("EMPTY CARD", 0, 0, 0, 0, 0); // #0
+        add("RED CARD", 0, 0, 0, 0, 0); // #0
+        add("BLUE CARD", 0, 0, 0, 0, 0); // #0
 
         // ______ 1-STAR CARDS _______
-        uint8_t stars = 1;
+        int stars = 1;
         add("Dodo", stars, 4, 2, 3, 4); // #1
         add("Tonberry", stars, 2, 2, 7, 2); // #2
         add("Sabotender", stars, 4, 3, 3, 3); // #3
@@ -379,14 +377,14 @@ public:
     }
 
     static ID getRandomID() {
-        return 1 + std::rand() % (cards.size() - 1);
+        return 3 + std::rand() % (cards.size() - 3);
     }
 
     static Card getRandomCard() {
         return cards[getRandomID()];
     }
 
-    static const std::string& name(const ID& id) {
+    static std::string name(const ID id) {
         return names[id];
     }
 

@@ -74,8 +74,8 @@ public:
     };
 
 private:
-    static std::vector<CardContainer> decks;
-    static std::vector<Stats> stats;
+    inline static std::vector<CardContainer> decks;
+    inline static std::vector<Stats> stats;
 
 public:
     static bool hasPlayedAgainst(const ID& deckFirst, const ID& deckSecond) {
@@ -171,7 +171,7 @@ public:
         return std::rand() % stats.size();
     }
 
-    static CardContainer& createRandom() {
+    static CardContainer createRandom() {
         CardContainer tmpDeck;
         do {
             tmpDeck.clear();
@@ -183,7 +183,7 @@ public:
         return tmpDeck;
     }
 
-    static bool matchFound(const CardContainer& targetDeck) {
+    static bool matchFound(const CardContainer targetDeck) {
         // Assumes targetDeck is sorted
         for (int i = 0; i < stats.size(); i++)
             if (targetDeck == decks[i])
@@ -191,7 +191,7 @@ public:
         return false;
     }
 
-    static void addIfUnique(CardContainer& deck) {
+    static void addIfUnique(CardContainer deck) {
         sort(deck);
         if (!matchFound(deck)) {
             decks.push_back(deck);
@@ -199,7 +199,7 @@ public:
         }
     }
 
-    static void initRandoms(const int& count) {
+    static void initRandoms(const int count) {
         while (stats.size() < count)
             addIfUnique(createRandom());
     }
