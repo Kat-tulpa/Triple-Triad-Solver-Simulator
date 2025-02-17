@@ -59,6 +59,9 @@ namespace TextureCache {
     }
 
     static void init() {
+        COLORED_BACKING[PLAYER_RED] = textureAddCard("RED CARD.png");
+        COLORED_BACKING[PLAYER_BLUE] = textureAddCard("BLUE CARD.png");
+        COLORED_BACKING[PLAYER_NONE] = textureAddCard("EMPTY CARD.png");
         for (int i = 0; i < CardCollection::cardCount(); i++) {
             const ID id = textureAddCard(CardCollection::name(i) + ".png");
             if (id != i)
