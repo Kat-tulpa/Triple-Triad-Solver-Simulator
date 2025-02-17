@@ -61,7 +61,7 @@ namespace GraphicsSDL {
 
     static SDL_Texture* createTextTexture(std::string textString, SDL_Color color, TTF_Font* font, int& textWidth, int& textHeight) {
         if (textString.empty()) {
-            std::cout << "GraphicsSDL::text() Tried using text with 0 length" << std::endl;
+            //std::cout << "GraphicsSDL::text() Tried using text with 0 length" << std::endl;
             return nullptr;
         }
 

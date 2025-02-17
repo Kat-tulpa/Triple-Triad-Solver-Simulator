@@ -496,6 +496,7 @@
     <ClInclude Include="Board.hpp" />
     <ClInclude Include="Card.hpp" />
     <ClInclude Include="CardCollection.hpp" />
+    <ClInclude Include="CardGrid.hpp" />
     <ClInclude Include="Clock.hpp" />
     <ClInclude Include="DeckStats.hpp" />
     <ClInclude Include="defs.hpp" />
@@ -503,6 +504,7 @@
     <ClInclude Include="GraphicsSDL.hpp" />
     <ClInclude Include="helpers.hpp" />
     <ClInclude Include="Matchplay.hpp" />
+    <ClInclude Include="MoveHistory.hpp" />
     <ClInclude Include="PossibleMove.hpp" />
     <ClInclude Include="RenderableCardContainer.hpp" />
     <ClInclude Include="Search.hpp" />

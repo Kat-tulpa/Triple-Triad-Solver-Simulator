@@ -7,7 +7,7 @@ namespace Attributes {
     static constexpr float VERTICAL_OFFSET = OFFSET_MULTIPLIER * TextureCache::CARD_HALF_HEIGHT;
     static constexpr float HORIZONTAL_OFFSET = OFFSET_MULTIPLIER * TextureCache::CARD_HALF_WIDTH;
 
-    static void draw(const int* attributes, float x, float y) {
+    static void draw(float x, float y, const int* attributes) {
         for (int edge = 0; edge < 4; edge++) {
             float xAfterOffset = x;
             float yAfterOffset = y;

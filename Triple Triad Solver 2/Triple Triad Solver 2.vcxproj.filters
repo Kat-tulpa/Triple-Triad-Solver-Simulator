@@ -1110,5 +1110,11 @@
     <ClInclude Include="PossibleMove.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MoveHistory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CardGrid.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

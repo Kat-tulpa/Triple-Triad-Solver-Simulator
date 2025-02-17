@@ -20,7 +20,7 @@ namespace Graphics {
         SDL_RenderFillRect(RENDERER, &rect);
     }
 
-    static void image(const ID imageID, const float x, const float y) {
+    static void image(float x, float y, ID imageID) {
         if (!TextureCache::cardTextures[imageID])
             std::cout << "Error: Attempted to render an image with an invalid texture in Graphics::image()" << std::endl;
         SDL_FRect destRect = { x, y, TextureCache::CARD_WIDTH, TextureCache::CARD_HEIGHT };

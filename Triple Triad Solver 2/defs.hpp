@@ -22,3 +22,4 @@ using ID = int;
 using CardContainer = std::vector<ID>;
 
 static constexpr int STRENGTH_MAX = 255;
+static constexpr int STARS_MAX = 5;
