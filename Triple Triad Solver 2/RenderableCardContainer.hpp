@@ -3,31 +3,47 @@
 #include "Graphics.hpp"
 #include "Attributes.hpp"
 
-class RenderableCardContainer {
-private:
-    typedef std::vector<std::vector<Card>> CardGrid;
-
+struct RenderableCardContainer {
     enum Location {
         TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTER
     };
 
-    inline static std::vector<RenderableCardContainer> renderables;
-    Location location;
     CardGrid cards;
     float xStart, yStart, drawWidth, drawHeight;
-    int colCount, rowCount;
+    int width, height;
 
-public:
-    RenderableCardContainer(Location _location, CardGrid _cards)
-        : location(_location), cards(_cards) {
+    // From CardContainer
+    RenderableCardContainer(int width, int height, Location _location, Player _player, const CardContainer _cards)
+        : width(width), height(height), xStart(0), yStart(0) {
 
-        rowCount = cards.at(0).size();
-        colCount = cards.size();
+        cards = cardsToGrid(width, height, filledWithEmpty(idsToCards(_cards), HAND_SIZE));
+        setControllingPlayerOn(cards, _player);
+        init(_location);
+    }
 
-        drawWidth = TextureCache::CARD_WIDTH * rowCount;
-        drawHeight = TextureCache::CARD_HEIGHT * colCount;
+    // From std::vector<Card>
+    RenderableCardContainer(int _width, int _height, Location _location, const std::vector<Card> _cards)
+        : width(_width), height(_height), xStart(0), yStart(0) {
 
-        xStart = 0; yStart = 0; // TOP_LEFT case
+        // In the case of hands less than full, fill them
+        const std::vector<Card> filledCards = filledWithEmpty(_cards, HAND_SIZE);
+        cards = cardsToGrid(width, height, filledCards);
+        init(_location);
+    }
+
+    // From CardGrid
+    RenderableCardContainer(int width, int height, Location _location, const CardGrid _cards)
+        : width(width), height(height), cards(_cards), xStart(0), yStart(0) {
+
+        init(_location);
+    }
+
+    inline static std::vector<RenderableCardContainer> renderables;
+
+    void init(Location location) {
+        drawWidth = TextureCache::CARD_WIDTH * width;
+        drawHeight = TextureCache::CARD_HEIGHT * height;
+
         switch (location) {
         case TOP_RIGHT:
             xStart = WINDOW_WIDTH - drawWidth;
@@ -48,94 +64,118 @@ public:
         }
     }
 
-    void draw() {
-        for (int col = 0; col < colCount; ++col) {
-            for (int row = 0; row < rowCount; ++row) {
-                float cardX = xStart + (row * TextureCache::CARD_WIDTH);
-                float cardY = yStart + (col * TextureCache::CARD_HEIGHT);
-                const Card& card = cards[col][row];
-                bool coloredOwner = true;
-                // Draw Backing
-                ID colorID;
-                if (card.controllingPlayer() == PLAYER_RED)
-                    colorID = CardCollection::getIDfromName("RED CARD");
-                else if (card.controllingPlayer() == PLAYER_BLUE)
-                    colorID = CardCollection::getIDfromName("BLUE CARD");
-                else {
-                    colorID = CardCollection::getIDfromName("EMPTY CARD");
-                    coloredOwner = false;
-                }
+    // For Manipulating Object Data -----------------------------------------------------
 
-                Graphics::image(colorID, cardX, cardY);
-                // Draw Card
-                if (TextureCache::cardTextures[card.id()] != TextureCache::cardTextures[0])
-                    Graphics::image(card.id(), cardX, cardY);
+    static void setControllingPlayerOn(CardGrid& cards, Player player) {
+        for (int i = 0; i < cards.size(); i++) // Iterate over rows
+            for (int j = 0; j < cards[i].size(); j++) // Iterate over columns in the row
+                cards[i][j].setControllingPlayer(player);
+    }
 
-                // Calculate center position for attribute drawing
-                const float xCenter = cardX + TextureCache::CARD_HALF_WIDTH;
-                const float yCenter = cardY + TextureCache::CARD_HALF_HEIGHT;
+    static std::vector<Card> filledWithEmpty(std::vector<Card> cards, int fillTo) {
+        while (cards.size() < fillTo)
+            cards.push_back(CardCollection::getEmpty());
+        return cards;
+    }
 
-                if (coloredOwner) {
-                    Attributes::draw(card.attributes(), xCenter, yCenter);
-                    GraphicsSDL::drawTextWithBackground(xCenter, yCenter - (TextureCache::CARD_HALF_HEIGHT * 0.8f), 36, CardCollection::name(card.id()), TextureCache::CARD_WIDTH);
+    static CardGrid cardsToGrid(int width, int height, const std::vector<Card> cards) {
+        CardGrid grid;
+        for (int row = 0; row < width; row++) {
+            std::vector<Card> gridLine;
+            for (int col = 0; col < height; col++) {
+                gridLine.push_back(cards[col]);
+            }
+            grid.push_back(gridLine);
+            gridLine.clear();
+        }
+
+        return grid;
+    }
+
+    static std::vector<Card> idsToCards(const CardContainer ids) {
+        std::vector<Card> cards;
+        cards.reserve(ids.size());
+        for (int i = 0; i < ids.size(); i++)
+            cards.push_back(CardCollection::card(ids[i]));
+
+        return cards;
+    }
+
+    // For Drawing ---------------------------------------------------------------------
+
+    static float cardXCenter(float x) {
+        return x + TextureCache::CARD_HALF_WIDTH;
+    }
+
+    static float cardYCenter(float y) {
+        return y + TextureCache::CARD_HALF_HEIGHT;
+    }
+
+    // Draws the background based on the controlling player
+    static void drawCardBackground(float x, float y, const Player player) {
+        Graphics::image(x, y, TextureCache::COLORED_BACKING[player]);
+    }
+
+    static void drawName(float x, float y, std::string name) {
+        return; // TODO: Implement
+    }
+
+    static void drawCardAttributes(float x, float y, Card card) {
+        Attributes::draw(cardXCenter(x), cardYCenter(y), card.attributes());
+    }
+
+    static void drawCardImage(float x, float y, ID id) {
+        Graphics::image(x, y, id);
+    }
+
+    void draw() const {
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                float x = xStart + (TextureCache::CARD_WIDTH * col);
+                float y = yStart + (TextureCache::CARD_HEIGHT * row);
+                drawCardBackground(x, y, cards[col][row].controllingPlayer());
+                if (cards[col][row].hasOwner()) {
+                    drawCardImage(x, y, cards[col][row].id());
+                    drawCardAttributes(x, y, cards[col][row]);
                 }
             }
         }
     }
 
-    static void addBoardCardsAsRenderable(const Board board) {
-        CardGrid cards(Board::WIDTH, std::vector<Card>(Board::HEIGHT));
-        for (int row = 0; row < Board::WIDTH; row++)
-            for (int col = 0; col < Board::HEIGHT; col++)
-                cards[col][row] = board.cards[col][row];
-        renderables.push_back(RenderableCardContainer(CENTER, cards));
-    }
+    static void addAllBoardElementsToRenderingList() {
+        // The board
+        auto board = RenderableCardContainer(Board::WIDTH, Board::HEIGHT, CENTER, Board::cards);
+        renderables.push_back(board);
 
-    static void addHandAsRenderable(CardContainer hand, Player player) {
-        CardGrid cards(1, std::vector<Card>(HAND_SIZE));
-        while (hand.size() < HAND_SIZE)
-            hand.push_back(0);
+        // Both Player's Decks and Hands
+        for (int player = 0; player < PLAYER_COUNT; player++) {
+            Location deckLocation, handLocation;
 
-        for (int i = 0; i < HAND_SIZE; i++) {
-            Card handCard = CardCollection::card(hand[i]);
-            handCard.setControllingPlayer(player);
-            cards[0][i] = handCard;
+            switch (player) {
+            case PLAYER_RED:
+                deckLocation = TOP_LEFT;
+                handLocation = BOTTOM_LEFT;
+                break;
+            case PLAYER_BLUE:
+                deckLocation = TOP_RIGHT;
+                handLocation = BOTTOM_RIGHT;
+                break;
+            }
+
+            // Get the player's hand and ensure it has the correct number of cards
+            auto deck = RenderableCardContainer(DECK_SIZE, 1, deckLocation, Player(player), DeckStats::deck(Board::deck[player]));
+            auto hand = RenderableCardContainer(HAND_SIZE, 1, handLocation, Player(player), Board::hand[player]);
+            renderables.push_back(deck);
+            renderables.push_back(hand);
         }
-
-        Location location;
-        if (player == PLAYER_RED)
-            location = Location::BOTTOM_LEFT;
-        else
-            location = Location::BOTTOM_RIGHT;
-        renderables.emplace_back(location, cards);
     }
 
-    static void addDecksAsRenderable(const ID redDeckID, const ID blueDeckID) {
-        CardGrid redCards(1, std::vector<Card>(DECK_SIZE));
-        CardGrid blueCards(1, std::vector<Card>(DECK_SIZE));
-        CardContainer redDeck = DeckStats::deck(redDeckID);
-        CardContainer blueDeck = DeckStats::deck(blueDeckID);
-        for (int i = 0; i < DECK_SIZE; i++) {
-            Card redCard = CardCollection::card(redDeck[i]);
-            redCard.setControllingPlayer(PLAYER_RED);
-            Card blueCard = CardCollection::card(blueDeck[i]);
-            blueCard.setControllingPlayer(PLAYER_BLUE);
-            redCards[0][i] = redCard;
-            blueCards[0][i] = blueCard;
-        }
-        renderables.emplace_back(TOP_LEFT, redCards);
-        renderables.emplace_back(TOP_RIGHT, blueCards);
-    }
-
-    static void drawGame(const Board board) {
+    static void drawGame() {
         GraphicsSDL::RenderClear();
         Graphics::background();
 
         renderables.clear();
-        addBoardCardsAsRenderable(board);
-        addHandAsRenderable(board.hand[PLAYER_RED], PLAYER_RED);
-        addHandAsRenderable(board.hand[PLAYER_BLUE], PLAYER_BLUE);
-        addDecksAsRenderable(board.deckIDs[PLAYER_RED], board.deckIDs[PLAYER_BLUE]);
+        addAllBoardElementsToRenderingList();
 
         // Draw elements
         for (auto& renderable : renderables)
