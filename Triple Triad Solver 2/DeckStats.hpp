@@ -129,7 +129,7 @@ public:
         return decks[id];
     }
 
-    static ID getID(const CardContainer& deck) {
+    static ID id(const CardContainer deck) {
         for (int i = 0; i < stats.size(); i++)
             if (decks[i] == deck)
                 return i;
@@ -148,7 +148,7 @@ public:
         return false;
     }
 
-    static bool isLegal(const CardContainer& deck) {
+    static bool isLegal(const CardContainer deck) {
         // Deck rules: no more than 1 card of 5-star rarity per deck, 
         // and no more than 2 cards of 4-star rarity or higher per deck
         // Also no duplicates
@@ -167,7 +167,7 @@ public:
             && fiveStarCount < 2 && deck.size() == DECK_SIZE;
     }
 
-    static int getRandomID() {
+    static int randomID() {
         return std::rand() % stats.size();
     }
 
@@ -176,7 +176,7 @@ public:
         do {
             tmpDeck.clear();
             for (int j = 0; j < DECK_SIZE; j++) {
-                tmpDeck.push_back(CardCollection::getRandomID());
+                tmpDeck.push_back(CardCollection::randomID());
             }
         } while (!isLegal(tmpDeck));
         std::sort(tmpDeck.begin(), tmpDeck.end());
@@ -202,6 +202,38 @@ public:
     static void initRandoms(const int count) {
         while (stats.size() < count)
             addIfUnique(createRandom());
+    }
+
+    static CardContainer randomFromStarCriteria(const int askingCount[STARS_MAX]) {
+        int found[STARS_MAX] = { 0, 0, 0, 0 ,0 };
+        CardContainer cards;
+        cards.reserve(DECK_SIZE);
+
+        for (int i = 0; i < STARS_MAX; i++) {
+            while (found[i] < askingCount[i]) {
+                const ID& id = CardCollection::randomWithStarsID(i + 1);
+                bool duplicateFound = false;
+                for (int j = 0; j < cards.size(); j++)
+                    if (cards[j] == id)
+                        duplicateFound = true;
+                if (!duplicateFound) {
+                    found[i]++;
+                    cards.push_back(id);
+                }
+            }
+        }
+        return cards;
+    }
+
+    static CardContainer createWithMaxStars() {
+        // 0x 1-star, 0x 2-star, 3x 3-star, 1x 4-star, 1x 5-star
+        const int maxStars[5] = { 0, 0, 3, 1, 1 };
+        return randomFromStarCriteria(maxStars);
+    }
+
+    static void initWithMaxStars(const int count) {
+        while (stats.size() < count)
+            addIfUnique(createWithMaxStars());
     }
 
     static void initAllPossible() {
