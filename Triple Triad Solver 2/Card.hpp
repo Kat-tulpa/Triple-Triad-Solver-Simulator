@@ -32,12 +32,16 @@ public:
         return myAttributes[index];
     }
 
-    const ID& id() const {
+    const ID id() const {
         return myID;
     }
 
     const int* attributes() const {
         return myAttributes;
+    }
+
+    const bool hasOwner() const {
+        return myControllingPlayer != PLAYER_NONE;
     }
 
     // Setters
