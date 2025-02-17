@@ -31,8 +31,6 @@ public:
         // Card Stat Ordering: Top, Right, Bottom, Left (Clockwise)
         // ______ EMPTY CARD _________
         add("EMPTY CARD", 0, 0, 0, 0, 0); // #0
-        add("RED CARD", 0, 0, 0, 0, 0); // #0
-        add("BLUE CARD", 0, 0, 0, 0, 0); // #0
 
         // ______ 1-STAR CARDS _______
         int stars = 1;
@@ -77,6 +75,19 @@ public:
         add("Qitari", stars, 4, 6, 2, 2); // #284 
         add("Dwarf", stars, 2, 4, 6, 2); // #294 
         add("Great Azuro", stars, 4, 7, 1, 1); // #305
+		add("Troll", stars, 4, 4, 3, 4); // #327    
+		add("Pisaca", stars, 3, 4, 4, 4); // #328   
+		add("Ea", stars, 5, 4, 1, 4); // #329   
+		add("Arkasodara", stars, 4, 4, 7, 4); // #330
+		add("Rampart", stars, 1, 6, 5, 1); // #347
+		add("Hippo Cart", stars, 1, 1, 7, 4); // #348 
+		add("N-7000", stars, 1, 5, 1, 6); // #357
+		add("Clockwork Onmyoji & Clockwork Yojimbo", stars, 6, 3, 1, 3); // #368
+		add("Dreamingway", stars, 2, 5, 5, 2); // #369
+		add("Okuri Chochin", stars, 4, 5, 1, 4); // #378
+		add("Ketuduke", stars, 2, 3, 4, 3); // #389
+		add("Pelupelu", stars, 5, 3, 4, 2); // #406  
+		add("Alpaca", stars, 3, 5, 3, 3); // #407 
 
         // ______ 2-STAR CARDS _______
         stars = 2;
@@ -155,6 +166,26 @@ public:
         add("Sentry R8", stars, 4, 6, 4, 5); // #396
         add("Outrunner", stars, 5, 3, 6, 5); // #397
         add("Overseer Kanilokka", stars, 6, 4, 5, 4); // #411
+		add("Keeper of the Keys", stars, 5, 4, 4, 7); // #317
+		add("Loporrit", stars, 4, 6, 6, 4); // #331 
+		add("Argos", stars, 7, 3, 7, 1); // #332 
+		add("Gajasura", stars, 4, 7, 4, 4); // #349
+		add("Geryon the Steer", stars, 2, 4, 6, 6); // #358   
+		add("Gladiator of Sildih", stars, 7, 2, 5, 5); // #359  
+		add("Thorne Knight", stars, 4, 7, 2, 6); // #360
+		add("Felicitous Furball", stars, 5, 5, 7, 1); // #370  
+		add("Anden", stars, 4, 1, 6, 7); // #371 
+		add("Gorai the Uncaged", stars, 7, 2, 6, 4); // #378 
+		add("Moko the Restless", stars, 7, 3, 3, 8); // #380
+		add("Lala", stars, 5, 6, 2, 3); // #390      
+		add("Statice", stars, 4, 4, 5, 5); // #391
+		add("PuPu", stars, 5, 7, 4, 3); // #392
+		add("Moblin", stars, 5, 5, 4, 5); // #408     
+		add("Branchbearer", stars, 6, 5, 3, 4); // #409  
+		add("Rroneek", stars, 3, 5, 4, 6); // #410  
+		add("Sentry R8", stars, 4, 6, 4, 5); // #411 
+		add("Outrunner", stars, 7, 3, 3, 8); // #412 
+		add("Overseer Kanilokka", stars, 6, 4, 5, 4); // #426
 
         // ______ 3-STAR CARDS _______
         stars = 3;
@@ -268,6 +299,50 @@ public:
         add("Arc Angel GK", stars, 4, 4, 7, 8); // #414
         add("Arc Angel HM", stars, 4, 7, 4, 8); // #415
         add("Arc Angel EV", stars, 4, 7, 8, 4); // #416
+		add("Trinity Seeker", stars, 6, 1, 8, 7); // #307    
+		add("Trinity Avowed", stars, 8, 7, 6, 1); // #308    
+		add("Azulmagia", stars, 4, 8, 6, 6); // #309    
+		add("Siegfried", stars, 6, 6, 4, 8); // #310    
+		add("Gogo, Master of Mimicry", stars, 8, 6, 4, 6); // #311
+		add("Lunar Bahamut", stars, 8, 2, 8, 4); // #318      
+		add("Valens van Varro", stars, 7, 5, 8, 3); // #319
+		add("Lunar Ifrit", stars, 8, 3, 4, 7); // #320      
+		add("4th-make Shemhazai", stars, 1, 6, 7, 8); // #321   
+		add("4th-make Cuchulainn", stars, 8, 1, 7, 6); // #322
+		add("Hermes", stars, 6, 8, 7, 1); // #333      
+		add("Amon the Undying", stars, 8, 7, 3, 3); // #334     
+		add("Magus Sisters", stars, 4, 1, 8, 8); // #336      
+		add("Meteion", stars, 7, 1, 8, 6); // #337      
+		add("Fourchenault Leveilleur", stars, 7, 7, 3, 7); // #338
+		add("Erichthonios", stars, 5, 8, 5, 6); // #335 
+		add("Rhalgr", stars, 6, 8, 1, 7); // #350       
+		add("Azeyma", stars, 7, 6, 1, 8); // #351        
+		add("Nald", stars, 8, 1, 6, 7); // #352          
+		add("Thal", stars, 6, 7, 8, 1); // #353
+		add("Beatrice", stars, 6, 7, 7, 4); // #361      
+		add("Byregot", stars, 1, 6, 8, 7); // #362  
+		add("Shadowcaster Zeless Gah", stars, 2, 8, 8, 2); // #363
+		add("Menphina", stars, 1, 7, 6, 8); // #374 
+		add("Suprae-Lugae", stars, 5, 7, 5, 6); // #372  
+		add("Gancanagh", stars, 8, 3, 2, 8); // #373 
+		add("Octamammoth", stars, 6, 8, 4, 5); // #381     
+		add("Proto-Carbuncle", stars, 3, 7, 5, 7); // #382
+		add("Goldor", stars, 4, 2, 8, 8); // #383     
+		add("Shishio", stars, 7, 5, 2, 8); // #384 
+		add("Nophica", stars, 8, 6, 7, 1); // #394     
+		add("Althyk", stars, 1, 7, 8, 6); // #395      
+		add("Nymeia", stars, 1, 8, 6, 7); // #396     
+		add("Halone", stars, 1, 8, 7, 6); // #397      
+		add("Thaliak", stars, 7, 8, 6, 1); // #398     
+		add("Llymlaen", stars, 7, 8, 1, 6); // #399   
+		add("Oschon", stars, 7, 6, 8, 1); // #400      
+		add("Durante", stars, 7, 6, 6, 6); // #401 
+		add("Loquloqui", stars, 5, 5, 7, 5); // #393 
+		add("Gulool Ja Ja", stars, 7, 3, 3, 8); // #413  
+		add("Drowsie", stars, 3, 7, 5, 6); // #414     
+		add("Ryoqor Terteh", stars, 6, 6, 4, 6); // #415   
+		add("Maulskull", stars, 7, 7, 4, 4); // #416      
+		add("Ambrose", stars, 5, 3, 7, 6); // #417
 
         // ______ 4-STAR CARDS _______
         stars = 4;
@@ -324,6 +399,30 @@ public:
         add("Ttokrrone", stars, 9, 7, 7, 2); // #417
         add("Mica the Magical Mu", stars, 8, 2, 9, 6); // #418
         add("Prishe of the Distant Chains", stars, 6, 8, 8, 5); // #419
+		add("G-Warrior", stars, 9, 1, 7, 8); // #323        
+		add("Diamond Weapon", stars, 9, 8, 7, 1); // #324   
+		add("Diablo Armament", stars, 4, 4, 9, 9); // #325     
+		add("Anima", stars, 5, 1, 9, 9); // #339         
+		add("Quintus van Cinna", stars, 9, 3, 6, 8); // #340   
+		add("Endwalker Alphinaud & Alisaie", stars, 4, 9, 9, 3); // #341    
+		add("Hythlodaeus", stars, 7, 9, 6, 6); // #342     
+		add("Vrtra", stars, 9, 3, 7, 7); // #343     
+		add("Chi", stars, 8, 1, 9, 7); // #354           
+		add("Daivadipa", stars, 7, 8, 1, 9); // #355     
+		add("Scarmiglione", stars, 7, 6, 8, 7); // #364  
+		add("Barbariccia", stars, 6, 7, 7, 8); // #365   
+		add("Chief Keyward Lahabrea", stars, 5, 9, 5, 8); // #366   
+		add("Cagnazzo", stars, 8, 6, 7, 7); // #375      
+		add("Rubicante", stars, 7, 8, 6, 7); // #376    
+		add("Themis", stars, 5, 5, 9, 8); // #385       
+		add("Enenra", stars, 8, 5, 5, 9); // #386      
+		add("Eulogia", stars, 6, 9, 6, 7); // #402     
+		add("Asura", stars, 9, 5, 7, 6); // #403       
+		add("Valigarmanda", stars, 7, 5, 6, 8); // #418    
+		add("Otis", stars, 5, 7, 8, 6); // #422    
+		add("Cahciua", stars, 8, 8, 5, 5); // #423  
+		add("Prishe of the Distant Chains", stars, 6, 8, 8, 5); // #434        
+		add("Mica the Magical Mu", stars, 8, 2, 9, 6); // #433 
 
         // ______ 5-STAR CARDS _______
         stars = 5;
@@ -370,36 +469,58 @@ public:
         add("Lightning", stars, 9, 1, 7, STRENGTH_MAX); // #433
         add("Noctis Lucis Caelum", stars, 7, STRENGTH_MAX, 9, 1); // #434
         add("Clive Rosfield", stars, STRENGTH_MAX, 7, 8, 5); // #435
+		add("2B", stars, 6, STRENGTH_MAX, 4, 8); // #326     
+		add("Zodiark", stars, 5, STRENGTH_MAX, 3, STRENGTH_MAX); // #344     
+		add("Hydaelyn", stars, STRENGTH_MAX, 3, STRENGTH_MAX, 5); // #345   
+		add("Zenos Galvus", stars, 6, 6, 9, 9); // #346     
+		add("Endsinger", stars, 7, STRENGTH_MAX, 2, 9); // #356    
+		add("Hephaistos", stars, 9, 4, STRENGTH_MAX, 5); // #367     
+		add("Venat", stars, 4, 8, 7, STRENGTH_MAX); // #377   
+		add("Golbez", stars, STRENGTH_MAX, 5, 2, STRENGTH_MAX); // #387    
+		add("Athena", stars, 9, 5, STRENGTH_MAX, 4); // #388  
+		add("Zeromus", stars, 9, 9, 9, 1); // #404    
+		add("Zoraal Ja", stars, 9, 8, 5, 7); // #419      
+		add("Queen Eternal", stars, 3, STRENGTH_MAX, 9, 5); // #420   
+		add("Wuk Lamat", stars, 5, 5, STRENGTH_MAX, 9); // #424      
+		add("Sphene", stars, 9, STRENGTH_MAX, 6, 3); // #425         
+		add("Cloud Strife", stars, 9, 3, 9, 8); // #74         
+		add("Terra Branford", stars, STRENGTH_MAX, STRENGTH_MAX, 2, 5); // #73   
+		add("Bartz Klauser", stars, 4, 4, STRENGTH_MAX, STRENGTH_MAX); // #72    
+		add("Cecil Harvey", stars, 4, STRENGTH_MAX, 4, STRENGTH_MAX); // #71     
+		add("Onion Knight", stars, 8, 2, 8, STRENGTH_MAX); // #70    
+		add("Firion", stars, STRENGTH_MAX, 5, STRENGTH_MAX, 1); // #69     
+		add("Warrior of Light", stars, STRENGTH_MAX, 2, 5, STRENGTH_MAX); // #68   
+		add("Shadow Lord", stars, STRENGTH_MAX, STRENGTH_MAX, 4, 4); // #435 
     }
 
     static Card getEmpty() {
         return cards.front(); // The first element of cards is an empty card
     }
 
-    static ID getRandomID() {
-        return 3 + std::rand() % (cards.size() - 3);
+    static ID randomID() {
+        return 1 + std::rand() % (cards.size() - 1);
     }
 
-    static Card getRandomCard() {
-        return cards[getRandomID()];
+    static Card random() {
+        return cards[randomID()];
+    }
+
+    static ID randomWithStarsID(const int numStars) {
+        Card starCard = random();
+        while (starCard.stars() != numStars)
+            starCard = random();
+        return starCard.id();
     }
 
     static std::string name(const ID id) {
         return names[id];
     }
 
-    static ID getIDfromName(const std::string& name) {
+    static ID idFromName(const std::string& name) {
         auto it = std::find(names.begin(), names.end(), name);
         if (it != names.end())
             return std::distance(names.begin(), it);
 
-        std::cout << "Error: A name wasn't found in CardCollection::getIDfromName()" << std::endl;
-    }
-
-    static void print(ID id) {
-        const auto& card = cards[id];
-        for (int edge = 0; edge < 4; ++edge)
-            std::cout << attributeToChar(card.attribute(edge));
-        std::cout << std::endl;
+        std::cout << "Error: A name wasn't found in CardCollection::idFromName()" << std::endl;
     }
 };
