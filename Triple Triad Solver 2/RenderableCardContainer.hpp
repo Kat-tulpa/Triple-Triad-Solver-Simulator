@@ -11,6 +11,7 @@ struct RenderableCardContainer {
     CardGrid cards;
     float xStart, yStart, drawWidth, drawHeight;
     int width, height;
+    bool drawEmpty;
 
     // From CardContainer
     RenderableCardContainer(int width, int height, Location _location, Player _player, const CardContainer _cards)
@@ -26,7 +27,7 @@ struct RenderableCardContainer {
         : width(_width), height(_height), xStart(0), yStart(0) {
 
         // In the case of hands less than full, fill them
-        const std::vector<Card> filledCards = filledWithEmpty(_cards, HAND_SIZE);
+        const std::vector<Card> filledCards; // = filledWithEmpty(_cards, HAND_SIZE);
         cards = cardsToGrid(width, height, filledCards);
         init(_location);
     }
@@ -43,6 +44,7 @@ struct RenderableCardContainer {
     void init(Location location) {
         drawWidth = TextureCache::CARD_WIDTH * width;
         drawHeight = TextureCache::CARD_HEIGHT * height;
+        drawEmpty = false;
 
         switch (location) {
         case TOP_RIGHT:
@@ -60,6 +62,7 @@ struct RenderableCardContainer {
         case CENTER:
             xStart = (WINDOW_WIDTH / 2.f) - (drawWidth / 2.f);
             yStart = (WINDOW_HEIGHT / 2.f) - (drawHeight / 2.f);
+            drawEmpty = true;
             break;
         }
     }
@@ -80,13 +83,16 @@ struct RenderableCardContainer {
 
     static CardGrid cardsToGrid(int width, int height, const std::vector<Card> cards) {
         CardGrid grid;
-        for (int row = 0; row < width; row++) {
+        int cardIndex = 0;
+        for (int row = 0; row < width; row++) {  // Width is rows
             std::vector<Card> gridLine;
-            for (int col = 0; col < height; col++) {
-                gridLine.push_back(cards[col]);
+            for (int col = 0; col < height; col++) {  // Height is columns
+                if (cardIndex < cards.size()) {
+                    gridLine.push_back(cards[cardIndex]);
+                    cardIndex++;
+                }
             }
             grid.push_back(gridLine);
-            gridLine.clear();
         }
 
         return grid;
@@ -120,6 +126,16 @@ struct RenderableCardContainer {
         return; // TODO: Implement
     }
 
+    static void drawCardStars(float x, float y, int stars) {
+        // Give a little bit of air padding
+        x += (TextureCache::CARD_WIDTH * 0.085f);
+        y += (TextureCache::CARD_HEIGHT * 0.07f);
+        if (!TextureCache::rarityTextures[stars - 1])
+            std::cout << "Error: Attempted to render an image with an invalid texture in Graphics::image() " << std::endl;
+        SDL_FRect destRect = { x, y, TextureCache::RARITY_WIDTH, TextureCache::RARITY_HEIGHT };
+        SDL_RenderTexture(RENDERER, TextureCache::rarityTextures[stars - 1], nullptr, &destRect);
+    }
+
     static void drawCardAttributes(float x, float y, Card card) {
         Attributes::draw(cardXCenter(x), cardYCenter(y), card.attributes());
     }
@@ -133,11 +149,14 @@ struct RenderableCardContainer {
             for (int col = 0; col < width; col++) {
                 float x = xStart + (TextureCache::CARD_WIDTH * col);
                 float y = yStart + (TextureCache::CARD_HEIGHT * row);
+
                 drawCardBackground(x, y, cards[col][row].controllingPlayer());
-                if (cards[col][row].hasOwner()) {
-                    drawCardImage(x, y, cards[col][row].id());
-                    drawCardAttributes(x, y, cards[col][row]);
-                }
+                if (cards[col][row].id() == EMPTY_CARD_ID)
+                    continue;
+
+                drawCardImage(x, y, cards[col][row].id());
+                drawCardAttributes(x, y, cards[col][row]);
+                drawCardStars(x, y, cards[col][row].stars());
             }
         }
     }

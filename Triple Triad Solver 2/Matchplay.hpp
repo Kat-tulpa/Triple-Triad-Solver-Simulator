@@ -8,9 +8,10 @@
 #include "RenderableCardContainer.hpp"
 
 namespace Matchplay {
+    static constexpr int MATCHES_TO_PLAY = 84000 * 32;
     // Check if there are enough decks for the simulation
     static bool hasSufficientDecks() {
-        const int sufficientDecks = std::sqrt(DeckStats::MATCHES_TO_PLAY) * 2;
+        const int sufficientDecks = std::sqrt(MATCHES_TO_PLAY) * 2;
         if (DeckStats::deckCount() < sufficientDecks) {
             std::cout << "Error: Not enough decks to satisfy MATCHES_TO_PLAY... OR, will be EXTREMELY slow" << std::endl;
             return false;
@@ -24,35 +25,39 @@ namespace Matchplay {
     }
 
     static void simulateMatch() {
-        // Assume the board's state is now managed by the Board namespace.
-        while (!Board::matchEnded()) {
-            // Find the best move for the current player
-            PossibleMove bestMove = Search::findBestMove();
-
-            // Make the move using the Board namespace
-            Board::makeMove(bestMove);
-
-            // Simulate the match by recording the result after the move
-            // (Optional: Record intermediate results if needed)
-
-            // Check if the match has ended after the move
-            if (Board::matchEnded()) {
-                break; // Exit if match is over
-            }
-
-            // Unmake the move to revert the board to its previous state
-            Board::undoMove();
-        }
-
-        // After simulating, record the match result
-        DeckStats::recordMatchResult(Board::deck[PLAYER_RED], Board::deck[PLAYER_BLUE], Board::winningPlayer());
+        auto [result, bestMove] = Search::minimax(0, true);
+        DeckStats::recordMatchResultAndUpdateELO(
+            Board::deck[PLAYER_RED], Board::deck[PLAYER_BLUE], Player(result));
     }
 
-    static void playRandomMatchups() {
+    static void playAllMatchupsOnce() {
+        const int matchesQueued = DeckStats::deckCount() * (DeckStats::deckCount() - 1);
+        int matchesPlayed = 0;
+        // Loop through every pair of decks once
+        for (int i = 0; i < DeckStats::deckCount(); ++i) {
+            for (int j = i + 1; j < DeckStats::deckCount(); ++j) {
+                // First match: redDeck vs blueDeck
+                Board::init(i, j); // Set the decks as red and blue
+                simulateMatch(); // Simulate the match
+
+                // Second match: blueDeck vs redDeck (swap sides)
+                Board::init(j, i); // Swap the decks for this match
+                simulateMatch(); // Simulate the match
+
+                matchesPlayed += 2;  // Each pair of decks results in 2 matches
+                std::cout << "Match Finished!" << std::endl;
+                Clock::printProgressEveryXseconds(Search::nodes / 100, 1, 3); // Progress tracker
+            }
+        }
+
+        std::cout << "Games simulated: " << matchesPlayed << std::endl;
+    }
+
+    static void playMatchupsRandomly() {
         if (!hasSufficientDecks()) return;
 
         int matchesPlayed = 0;
-        while (matchesPlayed < DeckStats::MATCHES_TO_PLAY) {
+        while (matchesPlayed < MATCHES_TO_PLAY) {
             // Prepare the board using a static method from the Board namespace
             prepareBoard();  // Assuming this method sets up the board
 
@@ -65,12 +70,11 @@ namespace Matchplay {
                 simulateMatch();  // Assuming simulateMatch now uses Board directly
 
                 matchesPlayed++;
-                Clock::printProgressEveryXseconds(matchesPlayed, DeckStats::MATCHES_TO_PLAY, 3);
+                Clock::printProgressEveryXseconds(matchesPlayed, MATCHES_TO_PLAY, 3);
             }
         }
 
         std::cout << "Games simulated: " << matchesPlayed << std::endl;
-        DeckStats::printBest();
     }
 
     // 1. Create a predefined target deck
@@ -84,17 +88,20 @@ namespace Matchplay {
         };
     }
 
-    static void findBestCounter(ID targetDeck) {
+    /*static void findBestCounter(ID targetDeck) {
         std::vector<ID> decksWhichWonAgainst;
 
         // --- Play Matches As PLAYER_RED into targetDeck ---
         for (int i = 0; i < DeckStats::deckCount(); i++) {
-            Board::init(i, targetDeck);  // Static method to prepare the board state
+            Board::init(i, targetDeck);
             transpositionTable.clear();
 
-            // Simulate match until it ends
             while (!Board::matchEnded()) {
-                Board::makeMove(Search::findBestMove());  // Apply best move to the board
+                PossibleMove bestMove = Search::findBestMove();
+                if (bestMove.isEmpty())
+                    std::cout << "Matchplay::findBestCounter() had no valid moves." << std::endl;
+
+                Board::makeMove(bestMove);  // Apply the move if it's valid
             }
 
             if (Board::winningPlayer() == PLAYER_RED) {
@@ -105,15 +112,16 @@ namespace Matchplay {
         // --- Play Matches As PLAYER_BLUE into targetDeck ---
         std::vector<ID> finalistDecks;
         for (int i = 0; i < decksWhichWonAgainst.size(); i++) {
-            Board::init(targetDeck, i);  // Static method to prepare the board state
+            Board::init(targetDeck, i);
             transpositionTable.clear();
 
-            // Simulate match until it ends
             while (!Board::matchEnded()) {
-                Board::makeMove(Search::findBestMove());  // Apply best move to the board
+                auto bestMove = Search::findBestMove();
+                if (bestMove.isEmpty())
+                    std::cout << "Matchplay::findBestCounter() had no valid moves." << std::endl;
+                Board::makeMove(bestMove);
             }
 
-            // Filter Out Losses From Finalist Decks
             if (Board::winningPlayer() == PLAYER_BLUE || Board::winningPlayer() == PLAYER_NONE) {
                 finalistDecks.push_back(Board::deck[PLAYER_BLUE]);
             }
@@ -128,7 +136,9 @@ namespace Matchplay {
         }
 
         std::cout << std::endl;
-        std::cout << (float(finalistDeckCount * 100) / float(DeckStats::deckCount())) << "% Of Decks Were Able To Win-Win or Win-Draw Against It" << std::endl;
+        std::cout << (float(finalistDeckCount * 100) / float(DeckStats::deckCount()))
+            << "% Of Decks Were Able To Win-Win or Win-Draw Against It"
+            << std::endl;
     }
 
     // 3. Find the best counter to the target deck
@@ -150,89 +160,131 @@ namespace Matchplay {
         RenderableCardContainer::drawGame();  // Initial render
 
         while (!Board::matchEnded()) {
-            Board::makeMove(Search::findBestMove());  // Apply the best move found
+            auto bestMove = Search::findBestMove();
+            if (bestMove.isEmpty())
+                std::cout << "Matchplay::graphicallyResimulateMatch() had no valid moves." << std::endl;
+            Board::makeMove(bestMove);
             SDL_Delay(16 * 360);  // Cap to ~0.18 fps (60 FPS equivalent delay)
             RenderableCardContainer::drawGame();  // Re-render after the move
         }
 
         RenderableCardContainer::drawGame();  // Final render after the match ends
+    } */
+
+    static void initializeMatch(ID redDeck, ID blueDeck) {
+        Graphics::background();
+        transpositionTable.clear();
+        Board::init(redDeck, blueDeck);
+        RenderableCardContainer::drawGame();
+        GraphicsSDL::RenderPresent();
     }
 
-    static void graphicallyResimulateMatchManual(ID redDeck, ID blueDeck) {
-        while (true) {  // Restart loop
-            Graphics::background();  // Set up the background
-            transpositionTable.clear();  // Clear the transposition table
-            Board::init(redDeck, blueDeck);  // Initialize the board with the given decks
-            RenderableCardContainer::drawGame();  // Initial render
-            GraphicsSDL::RenderPresent();  // Ensure first frame is visible
+    static void displayMoveHelper() {
+        std::cout << "Player RED, it's your turn!" << std::endl;
+        std::cout << "Select a card to play (1-" << Board::hand[PLAYER_RED].size()
+            << ") followed by x(0-" << Board::WIDTH - 1 << ") and y(0-"
+            << Board::HEIGHT - 1 << "). Example: 412" << std::endl;
 
-            while (!Board::matchEnded()) {  // Loop until the match ends
-                if (Board::currentPlayer == PLAYER_RED) {  // Player RED's turn
-                    bool validMove = false;
-                    int cardIndex, row, col;
-                    while (!validMove) {
-                        std::cout << "Player RED, it's your turn!" << std::endl;
-                        std::cout << "Select a card to play (1-" << Board::hand[PLAYER_RED].size()
-                            << ") followed by col(0-" << Board::WIDTH - 1 << ") and row(0-"
-                            << Board::HEIGHT - 1 << "). Example: 412" << std::endl;
+    }
 
-                        int input;
-                        std::cin >> input;
+    static bool validateMove(int index, int x, int y) {
+        if (index >= Board::hand[PLAYER_RED].size() || index < 0) {
+            return false;
+            std::cout << "Invalid card selection. Try again." << std::endl;
+        }
 
-                        // Extract values
-                        cardIndex = input / 100 - 1;
-                        row = (input / 10) % 10;
-                        col = input % 10;
+        else if (x < 0 || x >= Board::WIDTH || y < 0 || y >= Board::HEIGHT) {
+            std::cout << "Out-of-bounds placement. Try again." << std::endl;
+            return false;
+        }
 
-                        std::cout << "You selected card " << (cardIndex + 1)
-                            << " to be placed at (" << row << ", " << col << ")" << std::endl;
+        if (!Board::isEmpty(x, y)) {
+            std::cout << "That spot is already occupied. Try again." << std::endl;
+            return false;
+        }
+        
+        return true;
+    }
 
-                        if (cardIndex >= Board::hand[PLAYER_RED].size() || cardIndex < 0)
-                            std::cout << "Invalid card selection. Try again." << std::endl;
-                        else if (row < 0 || row >= Board::WIDTH || col < 0 || col >= Board::HEIGHT)
-                            std::cout << "Out-of-bounds placement. Try again." << std::endl;
-                        else if (!Board::isEmpty(col, row))
-                            std::cout << "That spot is already occupied. Try again." << std::endl;
-                        else
-                            validMove = true;
-                    }
+    static PossibleMove findLastRemainingMove() {
+        for (int col = 0; col < Board::WIDTH; col++)
+            for (int row = 0; row < Board::HEIGHT; row++)
+                if (Board::isEmpty(col, row))
+                    return PossibleMove{ col, row, Board::hand[PLAYER_RED][0] };
+    }
 
-                    // Apply the player's move
-                    auto move = PossibleMove(col, row, Board::hand[PLAYER_RED][cardIndex]);
-                    Board::makeMove(move);  // Static makeMove
+    static PossibleMove getPlayerMove() {
+        // Auto-make the last remaining move
+        if (Board::getAllPossibleMoves().size() == 1)
+            return findLastRemainingMove();
 
-                    //std::cout << CardCollection::name(Board::cards[0][0].id()) << CardCollection::name(Board::cards[1][0].id()) << CardCollection::name(Board::cards[2][0].id()) << std::endl;
-                    //std::cout << CardCollection::name(Board::cards[0][1].id()) << CardCollection::name(Board::cards[1][1].id()) << CardCollection::name(Board::cards[2][1].id()) << std::endl;
-                    //std::cout << CardCollection::name(Board::cards[0][2].id()) << CardCollection::name(Board::cards[1][2].id()) << CardCollection::name(Board::cards[2][2].id()) << std::endl;
+        bool validMove = false;
+        int cardIndex, x, y;
+        while (!validMove) {
+            displayMoveHelper();
+            int input;
+            std::cin >> input;
 
-                    // Ensure player move is displayed
-                    RenderableCardContainer::drawGame();
-                    GraphicsSDL::RenderPresent();
-                }
-                else {  // AI's turn
-                    // Force render update before AI move
-                    RenderableCardContainer::drawGame();
-                    GraphicsSDL::RenderPresent();
-                    SDL_Delay(100);  // Brief pause to ensure rendering
+            cardIndex = input / 100 - 1;
+            x = (input / 10) % 10;
+            y = input % 10;
+            y = (Board::HEIGHT - 1) - y;  // Flip y-axis
 
-                    // AI makes a move
-                    PossibleMove bestMove = Search::findBestMove();  // Get the best move
-                    Board::makeMove(bestMove);  // Apply AI's move
+            std::cout << "You selected card " << (cardIndex + 1)
+                << " to be placed at (" << x << ", " << (Board::HEIGHT - 1) - y << ")" << std::endl;
 
-                    // Ensure AI move is displayed
-                    RenderableCardContainer::drawGame();
-                    GraphicsSDL::RenderPresent();
-                }
+            validMove = validateMove(cardIndex, x, y);
+        }
+        return PossibleMove(x, y, Board::hand[PLAYER_RED][cardIndex]);
+    }
+
+    static void handlePlayerTurn() {
+        PossibleMove move = getPlayerMove();
+        Board::makeMove(move);
+        RenderableCardContainer::drawGame();
+        GraphicsSDL::RenderPresent();
+    }
+
+    /*static void handleAITurn() {
+        RenderableCardContainer::drawGame();
+        GraphicsSDL::RenderPresent();
+        SDL_Delay(100);
+        auto bestMove = Search::findBestMove();
+        if (bestMove.isEmpty())
+            std::cout << "Matchplay::handleAITurn() had no valid moves." << std::endl;
+        Board::makeMove(bestMove);
+        RenderableCardContainer::drawGame();
+        GraphicsSDL::RenderPresent();
+    }*/
+
+    static void displayMatchResult() {
+        if (Board::winningPlayer() == PLAYER_RED)
+            std::cout << "Game over, RED won!" << std::endl;
+        else if (Board::winningPlayer() == PLAYER_BLUE)
+            std::cout << "Game over, BLUE won!" << std::endl;
+        else
+            std::cout << "Game was drawn!" << std::endl;
+
+        std::cout << "Press any key to restart..." << std::endl;
+        std::cin.ignore();
+        std::cin.get();
+    }
+
+    /*static void graphicallyResimulateMatchManualRandomDecks() {
+        while (true) {
+            transpositionTable.clear();
+            initializeMatch(DeckStats::randomID(), DeckStats::randomID());
+
+            while (!Board::matchEnded()) {
+                if (Board::currentPlayer == PLAYER_RED)
+                    handlePlayerTurn();
+                else
+                    handleAITurn();
             }
 
-            // Final render
             RenderableCardContainer::drawGame();
             GraphicsSDL::RenderPresent();
-
-            // Wait for user input before restarting
-            std::cout << "Match over! Press any key to restart..." << std::endl;
-            std::cin.ignore();  // Clear newline if any left in buffer
-            std::cin.get();  // Wait for user input
+            displayMatchResult();
         }
-    }
+    }*/
 }
