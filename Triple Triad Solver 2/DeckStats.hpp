@@ -1,5 +1,6 @@
 #pragma once
 #include "defs.hpp"
+#include "ELO.hpp"
 #include <unordered_map>
 #include <iostream>
 #include <algorithm>
@@ -7,7 +8,6 @@
 
 class DeckStats {
 public:
-    static constexpr int MATCHES_TO_PLAY = 420;
     static constexpr int MATCHES_THRESHOLD = 100;
 
     enum Result {
@@ -18,10 +18,13 @@ public:
     private:
         ID myDeckID;
         int myWins, myDraws, myLosses;
+
         std::unordered_map<ID, Result> playedAgainst;
 
     public:
-        Stats() = default;
+        Stats() : myDeckID(0), myWins(0), myDraws(0), myLosses(0) {
+            ELO::initializeRatings(myDeckID);
+        }
 
         // Getters
         const int& wins() const {
@@ -49,7 +52,7 @@ public:
             return myWins + myLosses + myDraws;
         }
 
-        const float& winrate() const {
+        const float winrate() const {
             if (!(matchesPlayed() < MATCHES_THRESHOLD)) // Avoids division by zero
                 return (float(myWins) / float(matchesPlayed()));
             return -1.f;
@@ -68,7 +71,7 @@ public:
             myDraws++;
         }
 
-        void addMatchupResult(const ID& enemyDeck, const Result& result) {
+        void addMatchupResult(ID enemyDeck, Result result) {
             playedAgainst[enemyDeck] = result;
         }
     };
@@ -82,7 +85,7 @@ public:
         return stats[deckFirst].hasPlayedAgainst(deckSecond);
     }
 
-    static void recordMatchResult(ID redDeck, ID blueDeck, Player winner) {
+    static void recordMatchResultAndUpdateELO(ID redDeck, ID blueDeck, Player winner) {
         Result redResult, blueResult;
 
         switch (winner) {
@@ -108,6 +111,7 @@ public:
 
         stats[redDeck].addMatchupResult(blueDeck, redResult);
         stats[blueDeck].addMatchupResult(redDeck, blueResult);
+        ELO::updateElo(redDeck, blueDeck, winner);
     }
 
     static int deckCount() {
@@ -195,7 +199,8 @@ public:
         sort(deck);
         if (!matchFound(deck)) {
             decks.push_back(deck);
-            stats.emplace_back();
+            stats.push_back(Stats());
+            ELO::initializeRatings(decks.size() - 1);
         }
     }
 
@@ -254,8 +259,109 @@ public:
         } while (std::prev_permutation(selector.begin(), selector.end()));
     }
 
-    static void print(const ID& id) {
+    static bool containsCard(ID deckID, ID cardID) {
+        for (int i = 0; i < DECK_SIZE; i++)
+            if (deck(deckID).at(i) == cardID)
+                return true;
+        return false;
+    }
+
+    static double averageELOofCard(ID card) {
+        double sumELO = 0;
+        int matchHits = 0;
+        for (int i = 0; i < decks.size(); i++) {
+            if (containsCard(i, card)) {
+                double deckElo = ELO::getElo(i);
+                if (deckElo != -1.0) {  // Ensure Elo is valid
+                    sumELO += deckElo;
+                    matchHits++;
+                }
+            }
+        }
+
+        // Avoid division by zero if no valid decks contain the card
+        return matchHits > 0 ? sumELO / matchHits : 0.0;
+    }
+
+    static std::vector<std::pair<ID, double>> topPerformingCards(int topX) {
+        std::vector<std::pair<ID, double>> cardELOs;
+
+        for (int i = 0; i < CardCollection::cardCount(); i++)
+            cardELOs.push_back({ i, averageELOofCard(i)});
+
+        // Sort the cards in descending order of Elo
+        std::sort(cardELOs.begin(), cardELOs.end(),
+            [](const std::pair<ID, double>& a, const std::pair<ID, double>& b) {
+                return a.second > b.second;
+            });
+
+        // Extract the top X performing cards
+        std::vector<std::pair<ID, double>> topCards;
+        for (int i = 0; i < topX && i < cardELOs.size(); i++) {
+            topCards.push_back(cardELOs[i]);
+        }
+
+        return topCards;  // Returns a vector of pairs {cardID, averageELO}
+    }
+
+    static std::vector<std::pair<ID, double>> lowestPerformingCards(int bottomX) {
+        std::vector<std::pair<ID, double>> cardELOs;
+
+        for (int i = 0; i < CardCollection::cardCount(); i++) {
+            double cardElo = averageELOofCard(i);
+            if (cardElo > 0) {  // Only include cards with Elo > 0
+                cardELOs.push_back({ i, cardElo });
+            }
+        }
+
+        // Sort the cards in ascending order of Elo to get the lowest-performing cards
+        std::sort(cardELOs.begin(), cardELOs.end(),
+            [](const std::pair<ID, double>& a, const std::pair<ID, double>& b) {
+                return a.second < b.second;  // Ascending order for lowest ELO
+            });
+
+        // Extract the bottom X lowest-performing cards
+        std::vector<std::pair<ID, double>> bottomCards;
+        for (int i = 0; i < bottomX && i < cardELOs.size(); i++) {
+            bottomCards.push_back(cardELOs[i]);
+        }
+
+        return bottomCards;  // Returns a vector of pairs {cardID, averageELO}
+    }
+
+    static void printBestCards(int numCards) {
         std::cout << std::endl;
+        std::cout << "----------------------- Displaying Best Performing Cards ----------------------- " << std::endl;
+        std::vector<std::pair<ID, double>> topCards = topPerformingCards(numCards);
+        for (int i = 0; i < numCards; i++)
+            printCardPerformance(topCards[i]);
+    }
+
+    static void printWorstCards(int numCards) {
+        std::cout << std::endl;
+        std::cout << "----------------------- Displaying Lowest Performing Cards ----------------------- " << std::endl;
+        std::vector<std::pair<ID, double>> lowestCards = lowestPerformingCards(numCards);
+        for (int i = 0; i < numCards; i++)
+            printCardPerformance(lowestCards[i]);
+    }
+    
+    static void printBestPerforming(int numDecks) {
+        std::cout << std::endl;
+        std::cout << "----------------------- Displaying Best Performing Decks -----------------------" << std::endl;
+        std::vector<ID> topDecks = ELO::getTopDecks(numDecks);
+        for (int i = 0; i < topDecks.size(); i++)
+            DeckStats::print(topDecks[i]);
+    }
+
+    static void printCardPerformance(std::pair<ID, double> performance) {
+        std::cout << std::endl;
+        std::cout << "ELO: " << performance.second << std::endl;
+        std::cout << "Card: " << CardCollection::name(performance.first) << std::endl;
+    }
+
+    static void print(ID id) {
+        std::cout << std::endl;
+        std::cout << "ELO: " << ELO::getElo(id) << std::endl;
         std::cout << "Winrate: " << stats[id].winrate() * 100 << "%" << std::endl;
         std::cout << "Best Win-Loss-Draw: " << std::endl;
         std::cout << "W: " << stats[id].wins() << " | L: " << stats[id].losses() << " | D: " << stats[id].draws() << std::endl;
