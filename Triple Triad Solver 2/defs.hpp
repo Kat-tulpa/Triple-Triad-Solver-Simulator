@@ -4,6 +4,7 @@
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
+static constexpr int EMPTY_CARD_ID = 0;
 static constexpr int HAND_SIZE = 5;
 static constexpr int DECK_SIZE = 5;
 

@@ -1116,5 +1116,8 @@
     <ClInclude Include="CardGrid.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ELO.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

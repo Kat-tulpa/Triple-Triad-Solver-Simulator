@@ -500,6 +500,7 @@
     <ClInclude Include="Clock.hpp" />
     <ClInclude Include="DeckStats.hpp" />
     <ClInclude Include="defs.hpp" />
+    <ClInclude Include="ELO.hpp" />
     <ClInclude Include="Graphics.hpp" />
     <ClInclude Include="GraphicsSDL.hpp" />
     <ClInclude Include="helpers.hpp" />

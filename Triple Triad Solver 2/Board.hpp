@@ -137,6 +137,8 @@ namespace Board {
     static void placeCard(PossibleMove move) {
         cards[move.col][move.row] = CardCollection::card(move.card);
         cards[move.col][move.row].setControllingPlayer(currentPlayer);
+
+        resolveFlipsAndRecordThem(move);
     }
 
     static void makeMove(PossibleMove move) {
@@ -147,6 +149,7 @@ namespace Board {
         MoveHistory::currentMove.move.card = move.card;
         MoveHistory::currentMove.move.col = move.col;
         MoveHistory::currentMove.move.row = move.row;
+
         MoveHistory::finishMove();
     }
 
@@ -174,7 +177,6 @@ namespace Board {
             flip(cards[lastMove.col - 1][lastMove.row]);
             //std::cout << "Undoing left flip" << std::endl;
         }
-
 
         const Player previousPlayer = otherPlayer(currentPlayer);
 
@@ -212,7 +214,7 @@ namespace Board {
         if (!matchEnded())
             std::cout << "Error: Tried to call winningPlayer() on an unfinished game" << std::endl;
 
-        int cardsControlled[PLAYER_COUNT] = { 0 };
+        int cardsControlled[PLAYER_COUNT] = { 0, 0 };
         for (int col = 0; col < WIDTH; col++)
             for (int row = 0; row < HEIGHT; row++) {
                 Player controllingPlayer = cards[col][row].controllingPlayer();
@@ -220,7 +222,7 @@ namespace Board {
                     cardsControlled[controllingPlayer]++;
             }
 
-        cardsControlled[PLAYER_BLUE]++; // Blue gets a handicap of 1 card for going second
+        cardsControlled[PLAYER_BLUE]++; // Blue also controls their unplayed card
         if (cardsControlled[PLAYER_RED] > cardsControlled[PLAYER_BLUE])
             return PLAYER_RED;
         if (cardsControlled[PLAYER_BLUE] > cardsControlled[PLAYER_RED])
