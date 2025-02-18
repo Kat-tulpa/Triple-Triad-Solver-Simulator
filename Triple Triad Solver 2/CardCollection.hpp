@@ -159,7 +159,6 @@ public:
         add("Rolling Tankard", stars, 6, 4, 2, 6); // #296
         add("Ehll Tou", stars, 1, 7, 1, 7); // #295
         add("Mother Porxie", stars, 3, 3, 7, 6); // #306
-        add("PuPu", stars, 5, 7, 4, 3); // #389
         add("Moblin", stars, 5, 5, 4, 5); // #393
         add("Branchbearer", stars, 6, 5, 3, 4); // #394
         add("Rroneek", stars, 3, 5, 4, 6); // #395
@@ -261,9 +260,9 @@ public:
         add("Rofocale", stars, 4, 7, 1, 8); // #208
         add("Genbu", stars, 7, 7, 1, 7); // #215     
         add("Byakko", stars, 7, 1, 7, 7); // #216     
-        add("Arenvald Lentinus ", stars, 8, 4, 8, 2); // #217   
+        add("Arenvald Lentinus", stars, 8, 4, 8, 2); // #217   
         add("Lupin", stars, 3, 3, 8, 7); // #218
-        add("Qitana Dasheng", stars, 3, 8, 4, 8); // #224
+        add("Qitian Dasheng", stars, 3, 8, 4, 8); // #224
         add("Hiruko", stars, 4, 7, 5, 7); // #225
         add("Happy Bunny", stars, 3, 8, 7, 3); // #226
         add("Louhi", stars, 5, 8, 2, 7); // #227
@@ -294,11 +293,11 @@ public:
         add("Dawon", stars, 8, 4, 6, 6); // #298  
         add("Adrammelech", stars, 6, 1, 7, 8); // #299 
         add("Black Cat", stars, 7, 3, 3, 8); // #421
-        add("Arc Angel MR", stars, 7, 8, 4, 4); // #412
-        add("Arc Angel TT", stars, 8, 4, 4, 7); // #413
-        add("Arc Angel GK", stars, 4, 4, 7, 8); // #414
-        add("Arc Angel HM", stars, 4, 7, 4, 8); // #415
-        add("Arc Angel EV", stars, 4, 7, 8, 4); // #416
+        add("Ark Angel MR", stars, 7, 8, 4, 4); // #412
+        add("Ark Angel TT", stars, 8, 4, 4, 7); // #413
+        add("Ark Angel GK", stars, 4, 4, 7, 8); // #414
+        add("Ark Angel HM", stars, 4, 7, 4, 8); // #415
+        add("Ark Angel EV", stars, 4, 7, 8, 4); // #416
 		add("Trinity Seeker", stars, 6, 1, 8, 7); // #307    
 		add("Trinity Avowed", stars, 8, 7, 6, 1); // #308    
 		add("Azulmagia", stars, 4, 8, 6, 6); // #309    
@@ -325,7 +324,7 @@ public:
 		add("Menphina", stars, 1, 7, 6, 8); // #374 
 		add("Suprae-Lugae", stars, 5, 7, 5, 6); // #372  
 		add("Gancanagh", stars, 8, 3, 2, 8); // #373 
-		add("Octamammoth", stars, 6, 8, 4, 5); // #381     
+		add("Octomammoth", stars, 6, 8, 4, 5); // #381     
 		add("Proto-Carbuncle", stars, 3, 7, 5, 7); // #382
 		add("Goldor", stars, 4, 2, 8, 8); // #383     
 		add("Shishio", stars, 7, 5, 2, 8); // #384 
@@ -461,7 +460,7 @@ public:
         add("Shadowbringers Warrior of Light", stars, 2, STRENGTH_MAX, STRENGTH_MAX, 5); // #304
         add("Edens Promise", stars, STRENGTH_MAX, 5, 8, 6); // #315   
         add("Phoenix", stars, 5, 9, 6, 9); // #316 
-        add("Squall Leonhard", stars, 6, STRENGTH_MAX, STRENGTH_MAX, 1); // #428
+        add("Squall Leonhart", stars, 6, STRENGTH_MAX, STRENGTH_MAX, 1); // #428
         add("Zidane Tribal", stars, 5, STRENGTH_MAX, 6, 8); // #429
         add("Tidus", stars, STRENGTH_MAX, 7, 1, 9); // #430
         add("Shantotto", stars, 4, 9, 7, 9); // #431
